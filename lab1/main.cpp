@@ -1,65 +1,44 @@
 #include <iostream>
 using namespace std;
 
-struct Osoba {
-    // dane
-    string imie;
-    string nazwisko;
-    basic_string<char> wiek{};
+class Node {
+    friend class List;
 
-    // wskaznik na nastepna osobe
-    Osoba* nastepnaOsoba;
+    int data;
+    Node* next;
 
-    Osoba(string i, string n, int w) {
-        this->imie = i;
-        this->nazwisko = n;
-        this->wiek = w;
+public:
+    Node(int d) {
+        this->data = d;
+        this->next = nullptr;
     }
 
-    Osoba () {
-        nastepnaOsoba = NULL;
-    }
+    int getData() const;
 };
 
-struct Lista {
-    // wskaznik na pierwsza osobe w liscie
-    Osoba *pierwszaOsoba = NULL;
+int Node::getData() const {
+    return Node::data;
+}
 
-    // konstruktor listy
-    Lista() {
-        pierwszaOsoba = NULL;
-    }
-    Lista(Osoba* x) {
-        pierwszaOsoba = x;
-    }
+// // // // // // // //
 
-    // dodawanie osoby
-    void dodaj(string i, string n, int w) {
-        Osoba* nowaOsoba = new Osoba(i, n, w);
+class List {
+    Node* head = nullptr;
 
-        if(pierwszaOsoba == NULL) {
-            pierwszaOsoba = nowaOsoba;
-            return;
-        }
-
-        Osoba* temp = pierwszaOsoba;
-        while (temp->nastepnaOsoba == NULL) {
-            temp = temp->nastepnaOsoba;
-        }
-        temp->nastepnaOsoba = nowaOsoba;
-    }
-
-    // wyswietlanie listy
-    void wyswietlListe() {
-
-    }
-
+public:
+    void insertNode();
 };
 
-
+void List::insertNode() {
+    
+}
 
 int main() {
 
-
+    Node node1 = Node(1);
+    Node node2 = Node(2);
+    Node node3 = Node(3);
+    Node node4 = Node(4);
+    Node node5 = Node(5);
 
 }
