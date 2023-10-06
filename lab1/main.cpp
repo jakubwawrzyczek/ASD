@@ -48,12 +48,12 @@ void List::insertNode(Person* newNode) {
 void List::printList() {
 
     if (!head) {
-        cout << "Empty list!\n";
+        cout << "Empty list!" << endl;
     }
 
     Person* temp = head;
     while (temp) {
-        cout << temp->firstName << " " << temp->lastName << ", " << temp->age;
+        cout << temp->firstName << " " << temp->lastName << ", " << temp->age << endl;
         temp = temp->next;
     }
 }
@@ -63,6 +63,7 @@ void List::printList() {
 int main() {
 
     Person test1 = Person("Jakub", "Wawrzyczek", 19);
+    Person test2 = Person("Jan", "Kowalski", 3);
 
     // tworzenie listy (narazie pusta)
     List list1;
@@ -72,6 +73,7 @@ int main() {
 
     // dodawanie node'ow do listy
     list1.insertNode(&test1);
+    list1.insertNode(&test2);
 
     // printowanie zeby zobaczyc ze faktycznie sie dodaly
     list1.printList();
