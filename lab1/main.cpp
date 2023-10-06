@@ -3,15 +3,19 @@ using namespace std;
 
 
 // // // Node
-class Node {
+class Person {
     friend class List;
 
-    int data;
-    Node* next;
+    string firstName;
+    string lastName;
+    int age;
+    Person* next;
 
 public:
-    Node(int d) {
-        this->data = d;
+    Person(string f, string l, int a) {
+        this->firstName = f;
+        this->lastName = l;
+        this->age = a;
         this->next = nullptr;
     }
 };
@@ -19,18 +23,18 @@ public:
 // // // List
 
 class List {
-    Node* head = nullptr;
-    Node* tail = nullptr;
+    Person* head = nullptr;
+    Person* tail = nullptr;
 
 public:
     List() { head = nullptr; }
-    List(Node* newNode) { head = newNode; }
+    List(Person* newNode) { head = newNode; }
 
-    void insertNode(Node* newNode);
+    void insertNode(Person* newNode);
     void printList();
 };
 
-void List::insertNode(Node* newNode) {
+void List::insertNode(Person* newNode) {
     if(!head) {
         head = newNode;
         tail = head;
@@ -47,9 +51,9 @@ void List::printList() {
         cout << "Empty list!\n";
     }
 
-    Node* temp = head;
+    Person* temp = head;
     while (temp) {
-        cout << temp->data << " ";
+        cout << temp->firstName << " " << temp->lastName << ", " << temp->age;
         temp = temp->next;
     }
 }
@@ -58,10 +62,7 @@ void List::printList() {
 
 int main() {
 
-    Node node1 = Node(1);
-    Node node2 = Node(2);
-    Node node3 = Node(3);
-    Node node4 = Node(4);
+    Person test1 = Person("Jakub", "Wawrzyczek", 19);
 
     // tworzenie listy (narazie pusta)
     List list1;
@@ -70,10 +71,8 @@ int main() {
 
 
     // dodawanie node'ow do listy
-    list1.insertNode(&node1);
-    list1.insertNode(&node2);
-    list1.insertNode(&node3);
-    list1.insertNode(&node4);
+    list1.insertNode(&test1);
+
     // printowanie zeby zobaczyc ze faktycznie sie dodaly
     list1.printList();
 }
