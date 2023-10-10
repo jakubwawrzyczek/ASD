@@ -3,19 +3,15 @@ using namespace std;
 
 
 // // // Node
-class Person {
+class Node {
     friend class List;
 
-    string firstName;
-    string lastName;
-    int age;
-    Person* next;
+    int data;
+    Node* next;
 
 public:
-    Person(string f, string l, int a) {
-        this->firstName = f;
-        this->lastName = l;
-        this->age = a;
+    Node(int d) {
+        this->data = d;
         this->next = nullptr;
     }
 };
@@ -23,18 +19,22 @@ public:
 // // // List
 
 class List {
-    Person* head = nullptr;
-    Person* tail = nullptr;
+
 
 public:
+    Node* head = nullptr;
+    Node* tail = nullptr;
     List() { head = nullptr; }
-    List(Person* newNode) { head = newNode; }
+    List(Node* newNode) { head = newNode; }
 
-    void insertNode(Person* newNode);
+    void AddT(int v);
+    void AddH(int v);
+    void Add(Node* &p, int v);
     void printList();
 };
 
-void List::insertNode(Person* newNode) {
+void List::AddT(int v) {
+    Node* newNode = new Node(v);
     if(!head) {
         head = newNode;
         tail = head;
@@ -45,25 +45,37 @@ void List::insertNode(Person* newNode) {
     tail = newNode;
 }
 
+void List::AddH(int v) {
+    Node* newNode = new Node(v);
+
+    newNode->next = this->head;
+    this->head = newNode;
+}
+
+void List::Add(Node* &p, int v) {
+    Node* newNode = new Node(v);
+
+    newNode->next = p->next;
+    p->next = newNode;
+}
+
 void List::printList() {
 
     if (!head) {
-        cout << "Empty list!" << endl;
+        cout << "Empty list!";
     }
 
-    Person* temp = head;
+    Node* temp = head;
     while (temp) {
-        cout << temp->firstName << " " << temp->lastName << ", " << temp->age << endl;
+        cout << temp->data << " ";
         temp = temp->next;
     }
+    cout << endl;
 }
 
 // // // // // // // // // // // // // // // // // // //
 
 int main() {
-
-    Person test1 = Person("Jakub", "Wawrzyczek", 19);
-    Person test2 = Person("Jan", "Kowalski", 3);
 
     // tworzenie listy (narazie pusta)
     List list1;
@@ -71,10 +83,18 @@ int main() {
     list1.printList();
 
 
-    // dodawanie node'ow do listy
-    list1.insertNode(&test1);
-    list1.insertNode(&test2);
-
-    // printowanie zeby zobaczyc ze faktycznie sie dodaly
+    // dodawanie na koniec listy
+    list1.AddT(1);
+    list1.AddT(2);
+    list1.AddT(3);
     list1.printList();
+
+    // dodawanie na poczatek listy
+    list1.AddH(4);
+    list1.printList();
+
+    // dodawanie po danym wskazniku (po headzie)
+    list1.Add(list1.head, 5);
+    list1.printList();
+
 }
