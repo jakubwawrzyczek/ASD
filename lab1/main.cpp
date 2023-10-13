@@ -6,12 +6,12 @@ using namespace std;
 class Node {
     friend class List;
 
-    int data;
+    int val;
     Node* next;
 
 public:
-    Node(int d) {
-        this->data = d;
+    Node(int v) {
+        this->val = v;
         this->next = nullptr;
     }
 };
@@ -27,15 +27,15 @@ public:
     List() { head = nullptr; }
     List(Node* newNode) { head = newNode; }
 
-    void AddT(int v);
-    void AddH(int v);
-    void Add(Node* &p, int v);
-    void AddAfter();
+    void AddT(int newV);
+    void AddH(int newV);
+    void Add(Node* &p, int newV);
+    void AddAfter(int v, int newV);
     void printList();
 };
 
-void List::AddT(int v) {
-    Node* newNode = new Node(v);
+void List::AddT(int newV) {
+    Node* newNode = new Node(newV);
     if(!head) {
         head = newNode;
         tail = head;
@@ -46,22 +46,30 @@ void List::AddT(int v) {
     tail = newNode;
 }
 
-void List::AddH(int v) {
-    Node* newNode = new Node(v);
+void List::AddH(int newV) {
+    Node* newNode = new Node(newV);
 
     newNode->next = this->head;
     this->head = newNode;
 }
 
-void List::Add(Node* &p, int v) {
-    Node* newNode = new Node(v);
+void List::Add(Node* &p, int newV) {
+    Node* newNode = new Node(newV);
 
     newNode->next = p->next;
     p->next = newNode;
 }
 
-void List::AddAfter() {
+void List::AddAfter(int v, int newV) {
+    Node* p = head;
 
+    while(p && p->val != v) {
+        p=p->next;
+    }
+
+    if (p) {
+        Add(p, newV);
+    }
 }
 
 void List::printList() {
@@ -72,7 +80,7 @@ void List::printList() {
 
     Node* temp = head;
     while (temp) {
-        cout << temp->data << " ";
+        cout << temp->val << " ";
         temp = temp->next;
     }
     cout << endl;
@@ -100,6 +108,10 @@ int main() {
 
     // dodawanie po danym wskazniku (po headzie)
     list1.Add(list1.head, 5);
+    list1.printList();
+
+    // dodawanie po danej cyfrze
+    list1.AddAfter(1, 2);
     list1.printList();
 
 }
