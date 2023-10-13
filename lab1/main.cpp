@@ -30,6 +30,7 @@ public:
     void AddT(int v);
     void AddH(int v);
     void Add(Node* &p, int v);
+    void AddAfter();
     void printList();
 };
 
@@ -57,6 +58,10 @@ void List::Add(Node* &p, int v) {
 
     newNode->next = p->next;
     p->next = newNode;
+}
+
+void List::AddAfter() {
+
 }
 
 void List::printList() {
