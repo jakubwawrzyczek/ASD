@@ -27,14 +27,23 @@ public:
     List() { head = nullptr; }
     List(Node* newNode) { head = newNode; }
 
-    void AddT(int newV);
-    void AddH(int newV);
-    void Add(Node* &p, int newV);
-    void AddAfter(int v, int newV);
+    void addT(int newV);
+    void addH(int newV);
+    void add(Node* &p, int newV);
+    void addAfter(int v, int newV);
+
+    void duplicateEveryValue();
+    void zad3();
+    void duplicateEntireList();
+
+    void removeEvery2ndElement();
+    void removeEvenElements();
+    void removeH();
+
     void printList();
 };
 
-void List::AddT(int newV) {
+void List::addT(int newV) {
     Node* newNode = new Node(newV);
     if(!head) {
         head = newNode;
@@ -46,21 +55,21 @@ void List::AddT(int newV) {
     tail = newNode;
 }
 
-void List::AddH(int newV) {
+void List::addH(int newV) {
     Node* newNode = new Node(newV);
 
     newNode->next = this->head;
     this->head = newNode;
 }
 
-void List::Add(Node* &p, int newV) {
+void List::add(Node* &p, int newV) {
     Node* newNode = new Node(newV);
 
     newNode->next = p->next;
     p->next = newNode;
 }
 
-void List::AddAfter(int v, int newV) {
+void List::addAfter(int v, int newV) {
     Node* p = head;
 
     while(p && p->val != v) {
@@ -68,8 +77,41 @@ void List::AddAfter(int v, int newV) {
     }
 
     if (p) {
-        Add(p, newV);
+        add(p, newV);
     }
+}
+
+void List::duplicateEveryValue() {
+    Node* p = head;
+    while(p) {
+        add(p, p->val);
+        p = p->next->next;
+    }
+}
+
+void List::zad3() {
+    Node* p = head;
+
+    while (p) {
+        for (int i = 1 ; i < p->val ; i++) {
+            add(p, p->val);
+            p = p->next;
+        }
+        p = p->next;
+    }
+}
+
+void List::duplicateEntireList() {
+    Node* p = head;
+    List tempList;
+
+    while (p) {
+        tempList.addT(p->val);
+        p = p->next;
+    }
+
+    tail->next = tempList.head;
+    tail = tempList.tail;
 }
 
 void List::printList() {
@@ -97,21 +139,44 @@ int main() {
 
 
     // dodawanie na koniec listy
-    list1.AddT(1);
-    list1.AddT(2);
-    list1.AddT(3);
+    list1.addT(1);
+    list1.addT(2);
+    list1.addT(3);
     list1.printList();
 
     // dodawanie na poczatek listy
-    list1.AddH(4);
+    list1.addH(4);
     list1.printList();
 
     // dodawanie po danym wskazniku (po headzie)
-    list1.Add(list1.head, 5);
+    list1.add(list1.head, 5);
     list1.printList();
 
     // dodawanie po danej cyfrze
-    list1.AddAfter(1, 2);
+    list1.addAfter(1, 2);
     list1.printList();
+
+    // duplikowanie kazdej pojedynczej wartosci z listy
+    list1.duplicateEveryValue();
+    list1.printList();
+
+
+    cout << "\n------------\n" << "New list\n";
+
+    List list2;
+    list2.addT(1);
+    list2.addT(2);
+    list2.addT(3);
+    list2.addT(1);
+    list2.printList();
+
+    // tyle wystapien liczby jaka ma wartosc
+    list2.zad3();
+    list2.printList();
+
+    // skopiowanie calej listy na koniec
+    list2.duplicateEntireList();
+    list2.printList();
+
 
 }
