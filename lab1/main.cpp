@@ -129,14 +129,14 @@ void List::removeNext(Node* &p) {
 
 }
 
-//void List::removeEvery2ndElement() {
-//    Node* p = head;
-//
-//    while (p && p->next) {
-//        removeNext(p);
-//        p = p->next;
-//    }
-//}
+void List::removeEvery2ndElement() {
+    Node* p = head;
+
+    while (p && p->next) {
+        removeNext(p);
+        p = p->next;
+    }
+}
 
 //void List::removeEvenElements() {
 //    Node* p = head;
