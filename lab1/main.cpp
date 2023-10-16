@@ -36,6 +36,7 @@ public:
     void zad3();
     void duplicateEntireList();
 
+    void removeNext(Node* &p);
     void removeEvery2ndElement();
     void removeEvenElements();
     void removeH();
@@ -114,6 +115,47 @@ void List::duplicateEntireList() {
     tail = tempList.tail;
 }
 
+void List::removeNext(Node* &p) {
+    // H -> [1] -> [2] -> [3]
+    //       ^
+    //       p
+    // temp = p->next
+    // p->next = p->next->next
+    // delete temp
+
+    Node* temp = p->next;
+    p->next = p->next->next;
+    delete temp;
+
+}
+
+//void List::removeEvery2ndElement() {
+//    Node* p = head;
+//
+//    while (p && p->next) {
+//        removeNext(p);
+//        p = p->next;
+//    }
+//}
+
+//void List::removeEvenElements() {
+//    Node* p = head;
+//
+//    while (head->val % 2 == 0) {
+//        head = head->next;
+//        p = head;
+//    }
+//
+//    while (p && p->next) {
+//        if (p->next->val % 2 == 0) {
+//            removeNext(p);
+//        }
+//        else {
+//            p = p->next;
+//        }
+//    }
+//}
+
 void List::printList() {
 
     if (!head) {
@@ -164,10 +206,14 @@ int main() {
     cout << "\n------------\n" << "New list\n";
 
     List list2;
+    list2.addT(2);
+    list2.addT(2);
+    list2.addT(2);
     list2.addT(1);
     list2.addT(2);
     list2.addT(3);
     list2.addT(1);
+    list2.addT(2);
     list2.printList();
 
     // tyle wystapien liczby jaka ma wartosc
@@ -178,5 +224,12 @@ int main() {
     list2.duplicateEntireList();
     list2.printList();
 
+    // usuwanie co drugiego elementu w liscie
+    list2.removeEvery2ndElement();
+    list2.printList();
+
+    // usuwanie elementow parzystych z listy
+    list2.removeEvenElements();
+    list2.printList();
 
 }
