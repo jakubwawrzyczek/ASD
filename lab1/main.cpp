@@ -138,23 +138,23 @@ void List::removeEvery2ndElement() {
     }
 }
 
-//void List::removeEvenElements() {
-//    Node* p = head;
-//
-//    while (head->val % 2 == 0) {
-//        head = head->next;
-//        p = head;
-//    }
-//
-//    while (p && p->next) {
-//        if (p->next->val % 2 == 0) {
-//            removeNext(p);
-//        }
-//        else {
-//            p = p->next;
-//        }
-//    }
-//}
+void List::removeEvenElements() {
+    Node* p = head;
+
+    while (head->val % 2 == 0) {
+        head = head->next;
+        p = head;
+    }
+
+    while (p && p->next) {
+        if (p->next->val % 2 == 0) {
+            removeNext(p);
+        }
+        else {
+            p = p->next;
+        }
+    }
+}
 
 void List::printList() {
 
