@@ -205,13 +205,24 @@ void List::lab32(int x) {
 }
 
 void List::lab33() {
-    Node* p1 = head;
-    Node* p2 = head->next;
-    // H -> [1] -> [2] -> [3] -> [4]
-    
-    while(p1 && p2) {
+    addH(0);
+    Node* p = head;
 
+    while(p) {
+
+            cout << "zamiana ";
+        if (p->next->next->next && p->next->next->next->next) {
+            p = p->next->next;
+        }
+
+        else {
+            p = nullptr;
+        }
     }
+
+    Node* t2 = head;
+    head = head->next;
+    delete t2;
 
 }
 
@@ -221,12 +232,17 @@ void List::printList() {
         cout << "Empty list!";
     }
 
-    Node* temp = head;
-    while (temp) {
-        cout << temp->val << " ";
-        temp = temp->next;
+    else {
+        cout << "H ";
+
+        Node* temp = head;
+        while (temp) {
+            cout << "-> [" << temp->val << "] ";
+            temp = temp->next;
+        }
+        cout << "-> NULL"<< endl;
     }
-    cout << endl;
+
 }
 
 // // // // // // // // // // // // // // // // // // //
@@ -295,11 +311,18 @@ int main() {
     list3.addT(1);
     list3.addT(2);
     list3.addT(3);
-    cout << "\n\n\n\n\n";
+    list3.addT(4);
+    list3.addT(5);
+    cout << "\n\n\n";
 
     // zamien miejscami
     list3.printList();
     list3.lab32(1);
+    list3.printList();
+
+    cout << "\n\n\n";
+    list3.printList();
+    list3.lab33();
     list3.printList();
 
 
