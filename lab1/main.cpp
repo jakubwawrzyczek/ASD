@@ -27,19 +27,36 @@ public:
     List() { head = nullptr; }
     List(Node* newNode) { head = newNode; }
 
+    // wstawianie elementow
     void addT(int newV);
     void addH(int newV);
     void add(Node* &p, int newV);
     void addAfter(int v, int newV);
-
     void duplicateEveryValue();
     void zad3();
     void duplicateEntireList();
 
+    // usuwanie elementow
     void removeNext(Node* &p);
     void removeEvery2ndElement();
     void removeEvenElements();
-    void removeH();
+
+    // lab3
+    void lab31(); // zamien min z max
+    void lab32(int x); // zamien element x z nastepnym
+    void lab33(); // zamien co drugi element
+    void lab34(); // zamien pierwszy z ostatnim
+
+    // dzielenie listy
+    void split1(Node* &head, Node* &head1, Node* &head2);
+    void split2(Node* &head, Node* &head1, Node* &head2);
+    void split3(Node* &head, Node* &head1, Node* &head2);
+    // pierwsza lista ma elementy a dwie pozostale sa puste
+    // po wykonaniu pierwsza lista jest pusta a dwie pozostale maja po 1/2 elementow
+
+    // laczenie listy
+    void merge(Node* &head, Node* &head1, Node* &head2);
+    // polaczyc dwie posortowane listy
 
     void printList();
 };
@@ -156,6 +173,48 @@ void List::removeEvenElements() {
     }
 }
 
+void List::lab32(int x) {
+    addH(0);    // H -> [1] -> [2] -> [3]   =>   H -> [0] -> [1] -> [2] -> [3]
+    Node* p = head;
+
+
+    // przechodzi po liscie i szuka wartosci x a jesli na nia natrafi to ustawia wskaznik na elemencie poprzednim
+    while(p->next && p->next->val != x) {
+        p = p->next;
+    }
+
+    if(p->next == nullptr) {
+        cout << "Value " << x << " not found\n";
+    }
+    else {
+        // H -> [0] -> [1] -> [2] -> [3]
+        //       ^      ^
+        //       p     temp
+        //
+        // [0] -> [2], [1] -> [3], [2] -> [1]
+
+        Node* temp = p->next;
+        p->next = temp->next;
+        temp->next = p->next->next;
+        p->next->next = temp;
+
+        Node* t2 = head;
+        head = head->next;
+        delete t2;
+    }
+}
+
+void List::lab33() {
+    Node* p1 = head;
+    Node* p2 = head->next;
+    // H -> [1] -> [2] -> [3] -> [4]
+    
+    while(p1 && p2) {
+
+    }
+
+}
+
 void List::printList() {
 
     if (!head) {
@@ -231,5 +290,17 @@ int main() {
     // usuwanie elementow parzystych z listy
     list2.removeEvenElements();
     list2.printList();
+
+    List list3;
+    list3.addT(1);
+    list3.addT(2);
+    list3.addT(3);
+    cout << "\n\n\n\n\n";
+
+    // zamien miejscami
+    list3.printList();
+    list3.lab32(1);
+    list3.printList();
+
 
 }
