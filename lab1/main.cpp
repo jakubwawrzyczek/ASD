@@ -210,7 +210,11 @@ void List::lab33() {
 
     while(p) {
 
-            cout << "zamiana ";
+        Node* temp = p->next;
+        p->next = temp->next;
+        temp->next = p->next->next;
+        p->next->next = temp;
+
         if (p->next->next->next && p->next->next->next->next) {
             p = p->next->next;
         }
