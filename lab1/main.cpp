@@ -233,7 +233,7 @@ void List::lab33() {
 void List::printList() {
 
     if (!head) {
-        cout << "Empty list!";
+        cout << "Empty list!\n";
     }
 
     else {
@@ -266,23 +266,27 @@ int main() {
     list1.printList();
 
     // dodawanie na poczatek listy
+    cout << "\n\nDodawanie elementow na poczatek listy" << endl;
     list1.addH(4);
     list1.printList();
 
     // dodawanie po danym wskazniku (po headzie)
+    cout << "\n\nDodawanie po danym elemencie (po wskazniku do head)" << endl;
     list1.add(list1.head, 5);
     list1.printList();
 
     // dodawanie po danej cyfrze
+    cout << "\n\nDodawanie po danej cyfrze (2 dodane po 1)" << endl;
     list1.addAfter(1, 2);
     list1.printList();
 
-    // duplikowanie kazdej pojedynczej wartosci z listy
+    // duplikowanie kazdego elementu z listy
+    cout << "\n\nDuplikowanie kazdego elementu z listy" << endl;
     list1.duplicateEveryValue();
     list1.printList();
 
 
-    cout << "\n------------\n" << "New list\n";
+    cout << "\n\n------------ New list ------------ " << endl;
 
     List list2;
     list2.addT(2);
@@ -293,23 +297,32 @@ int main() {
     list2.addT(3);
     list2.addT(1);
     list2.addT(2);
+
+    cout << "\n\nNowa lista:" << endl;
     list2.printList();
 
     // tyle wystapien liczby jaka ma wartosc
+    cout << "\n\nMnozenie kazdego elementu tyle razy jaka ma wartosc" << endl;
     list2.zad3();
     list2.printList();
 
     // skopiowanie calej listy na koniec
+    cout << "\n\nSkopiowanie calej listy na koniec" << endl;
     list2.duplicateEntireList();
     list2.printList();
 
     // usuwanie co drugiego elementu w liscie
+    cout << "\n\nUsuwanie co drugiego elementu w liscie" << endl;
     list2.removeEvery2ndElement();
     list2.printList();
 
     // usuwanie elementow parzystych z listy
+    cout << "\n\nUsuwanie elementow z wartosciami parzystymi z listy" << endl;
     list2.removeEvenElements();
     list2.printList();
+
+
+    cout << "\n\n------------ New list ------------ " << endl;
 
     List list3;
     list3.addT(1);
@@ -317,14 +330,17 @@ int main() {
     list3.addT(3);
     list3.addT(4);
     list3.addT(5);
-    cout << "\n\n\n";
+
+    cout << "\n\nNowa lista:" << endl;
+    list3.printList();
 
     // zamien miejscami
+    cout << "\n\nZamiana miejscami danej liczby z jej nastepnikiem (tutaj 1 z nastepnikiem)" << endl;
     list3.printList();
     list3.lab32(1);
     list3.printList();
 
-    cout << "\n\n\n";
+    cout << "\n\nZamiana miejscami z nastepnikiem co drugiego elementu" << endl;
     list3.printList();
     list3.lab33();
     list3.printList();
