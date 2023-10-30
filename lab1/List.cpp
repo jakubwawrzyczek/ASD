@@ -3,12 +3,12 @@
 
 using namespace std;
 
-void List::add(Node *&p, int newV) {}
-
 // Wypisuje wszystkie elementy z listy
 void List::printList() {
+    cout << "\nhead: " << head->val << " tail: " << tail->val << endl;
+
     if (!head) {
-        cout << "Empty list!";
+        cout << "Lista jest pusta!";
     }
 
     else {
@@ -23,16 +23,96 @@ void List::printList() {
     }
 }
 
-// Dodaje element na poczatek listy
+
+// ------------------------------------ DODAWANIE ELEMENTOW ------------------------------------
+// Dodawanie elementu na poczatek listy
 void List::addH(int newV) {
     Node* newNode = new Node(newV);
 
     newNode->next=head;
     head = newNode;
+
+    if (tail == nullptr) {
+        tail = newNode;
+    }
 }
 
-// Dodaje element na koniec listy
-void List::addT(int newV) {}
+// Dodawanie elementu na koniec listy
+void List::addT(int newV) {
+    Node* newNode = new Node(newV);
 
-// Dodaje element po wybranej wartosci w liscie
-void List::addAfter(int v, int newV) {}
+    tail->next = newNode;
+    tail = tail->next;
+}
+
+
+// ------------------------------------ USUWANIE ELEMENTOW ------------------------------------
+// Usuwanie pierwszego elementu z listy
+void List::removeH() {
+    Node* temp = head;
+    head = head->next;
+
+    delete temp;
+}
+
+// Usuwanie ostatniego elementu z listy
+void List::removeT() {
+    Node* p = head;
+    Node* temp = tail;
+
+    while (p->next != tail) {
+        p = p->next;
+    }
+
+    tail = p;
+    p->next = nullptr;
+    delete temp;
+}
+
+// Usuwanie nastepnika danego wskaznika w liscie
+void List::removeNext(Node *&p) {
+    Node* temp = p->next;
+    p->next = p->next->next;
+
+    delete temp;
+}
+
+// Usuwanie elementu o podanej wartosci
+void List::removeByValue(int v) {
+    addH(0);
+    Node* p = head;
+
+    while(p->next && p->next->val != v) {
+        p = p->next;
+    }
+
+    if (p->next == nullptr) {
+        cout << "Nie znaleziono podanej wartości." << endl;
+    } else {
+        Node* temp = p->next;
+        p->next = p->next->next;
+        delete temp;
+
+        Node* temp2 = head;
+        head = head->next;
+        delete temp2;
+    }
+}
+
+
+// ------------------------------------ LAB 2 ------------------------------------
+// Dodawanie elementu po podanej wartosci
+void List::addAfter(int v, int newV) {
+    Node* p = head;
+
+    while(p && p->val != v) {
+        p = p->next;
+    }
+
+    if (p) {
+        Node* newNode = new Node(newV);
+
+        newNode->next = p->next;
+        p->next=newNode;
+    } else {cout << "W liscie nie znaleziono podanej wartosci." << endl;}
+}
