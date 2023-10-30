@@ -396,12 +396,43 @@ void List::lab4zad2(int x, int y) {
     // sprawdza czy obie wartosci zostaly znalezione w liscie
     if (px == nullptr || py == nullptr) {cout << "Nie znaleziono podanej wartosci." << endl; return;}
 
+    // pomocnicze printowanie wartosci
+    cout << "wartosc przed x: " << b_px->val << " wartosc x: " << px->val << " wartosc przed y: " << b_py->val << " wartosc y: " << py->val;
+
 
     // tutaj musze zrobic cala magiczna reszte
 
     // 1. wyciagnac elementy do odwrocenia do osobnej listy
     // H -> [1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [8] -> [9] -> [10] -> [11] -> nullptr
+    //       b_px   px                                        b_py   py
+
+    b_px->next = py; // 2-8 wyciagniete ze srodka
+    b_py->next = nullptr; // 2-8 z koncowka nullptr
+
+    List tempList;
+    tempList.head = px;
+    tempList.tail = b_py;
+
+    tempList.printList();
+
+
+
     // 2. odwrocenie tej osobnej listy
+
+    List reversedList;
+    reversedList.addH(0); // pomocniczy head
+
+    while (tempList.head) {
+        Node *temphead = tempList.head;
+
+        tempList.head = tempList.head->next;
+        temphead->next = reversedList.head;
+        reversedList.head = temphead;
+    }
+
+    cout << tempList.head; // templist w calosci wyczyszczony
+    reversedList.printList();
+
     // 3. wlozenie tego spowrotem do oryginalnej listy
 
 
@@ -410,9 +441,7 @@ void List::lab4zad2(int x, int y) {
     head = head->next;
     delete t2;
 
-    // pomocnicze printowanie wartosci
-    cout << "wartosc przed x: " << b_px->val << " wartosc x: " << px->val << " wartosc przed y: " << b_py->val << " wartosc y: " << py->val;
-}
+    }
 
 // zadanie z okregami
 void List::lab4zad3() {
