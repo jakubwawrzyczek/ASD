@@ -359,6 +359,59 @@ void List::lab4zad1(Node* H) {
 // zamiana kolejnoscia elementow pomiedzy dwoma elementami
 void List::lab4zad2(int x, int y) {
 
+    // sprawia ze y zawsze bedzie wiekszy od x (dla prostszej implementacji funkcji)
+    if (x > y) {
+        int temp = y;
+        y = x;
+        x = temp;
+    }
+
+    // wylapuje blad
+    if (x == y) {
+        cout << "Wartosci nie moga byc takie same."<< endl;
+    }
+
+    // pomocniczy head, ktory pozniej bedzie usuniety
+    addH(0);
+
+    Node* p = head;
+    Node* px = nullptr;
+    Node* b_px = nullptr;
+    Node* py = nullptr;
+    Node* b_py = nullptr;
+
+    // znajduje w liscie podane przez uzytkownika wartosci i zwraca
+    // wskaznik do nich, oraz elementow poprzedzajacych
+    while (p->next) {
+        if (p->next->val == x) {
+            px = p->next;
+            b_px = p;
+        } else if (p->next->val == y) {
+            py = p->next;
+            b_py = p;
+        }
+        p = p->next;
+    }
+
+    // sprawdza czy obie wartosci zostaly znalezione w liscie
+    if (px == nullptr || py == nullptr) {cout << "Nie znaleziono podanej wartosci." << endl; return;}
+
+
+    // tutaj musze zrobic cala magiczna reszte
+
+    // 1. wyciagnac elementy do odwrocenia do osobnej listy
+    // H -> [1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [8] -> [9] -> [10] -> [11] -> nullptr
+    // 2. odwrocenie tej osobnej listy
+    // 3. wlozenie tego spowrotem do oryginalnej listy
+
+
+    // usuniecie pomocniczego heada
+    Node* t2 = head;
+    head = head->next;
+    delete t2;
+
+    // pomocnicze printowanie wartosci
+    cout << "wartosc przed x: " << b_px->val << " wartosc x: " << px->val << " wartosc przed y: " << b_py->val << " wartosc y: " << py->val;
 }
 
 // zadanie z okregami
