@@ -16,6 +16,8 @@ public:
     // ------------------------------------ DODAWANIE ELEMENTOW ------------------------------------
     void addH(int newV);                // Dodawanie elementu na poczatek listy
     void addT(int newV);                // Dodawanie elementu na koniec listy
+    void addPointT(int x, int y);       // Dodawanie punktu na koniec listy
+    void add(Node* &p, int newV);       // Dodawanie elementu po elemencie do ktorego przekazany jest wskaznik
 
 
     // ------------------------------------ USUWANIE ELEMENTOW ------------------------------------
@@ -34,30 +36,17 @@ public:
 
 
     // ------------------------------------ LAB 3 ------------------------------------
-    void lab31();           // zamien min z max
-    void lab32(int x);      // zamien element x z nastepnym
-    void lab33();           // zamien co drugi element
-    void lab34();           // zamien pierwszy z ostatnim
-    void lab35();
+    void lab3zad1();            // Zamien min z max
+    void lab3zad2(int x);       // Zamien element x z nastepnym
+    void lab3zad3();            // Zamien co drugi element
+    void lab3zad4();            // Zamien pierwszy z ostatnim
+    // Zadanie 5                // Dzielenie listy na 3 rozne sposoby
 
 
     // ------------------------------------ LAB 4 ------------------------------------
-    void lab41(int newV);       // wstawianie do posortowanej listy
-    void lab42(int x, int y);   // ??
-    void lab43();               // ??
-
-
-    // dzielenie listy
-    void split1(Node* &head, Node* &head1, Node* &head2);
-    void split2(Node* &head, Node* &head1, Node* &head2);
-    void split3(Node* &head, Node* &head1, Node* &head2);
-    // pierwsza lista ma elementy a dwie pozostale sa puste
-    // po wykonaniu pierwsza lista jest pusta a dwie pozostale maja po 1/2 elementow
-
-
-    // laczenie listy
-    void merge(Node* &head, Node* &head1, Node* &head2);
-    // polaczyc dwie posortowane listy
+    void lab4zad1(int newV);        // wstawianie do posortowanej listy
+    void lab4zad2(int x, int y);    // zamiana kolejnoscia elementow pomiedzy dwoma elementami
+    void lab4zad3();                // zadanie z okregami
 };
 
 
