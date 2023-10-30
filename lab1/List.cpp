@@ -331,19 +331,25 @@ void List::lab3zad4() {
 
 // ------------------------------------ LAB 4 ------------------------------------
 // wstawianie do posortowanej listy
-void List::lab4zad1(int newV) {
+void List::lab4zad1(Node* H) {
     addH(-999999999);
-    Node* p = head;
+    Node* p = H;
 
-    // lista w kolejnosci rosnacej
-    while (p->next) {
-        if (p->next->val >= newV) {
-            add(p, newV);
-            break;
-        } else {p = p->next;}
+    while(p) {
+        Node* p1 = head;
+        int newV = p->val;
+
+        while (p1->next) {
+            if (p1->next->val >= newV) {
+                add(p1, newV);
+                break;
+            } else {p1 = p1->next;}
+        }
+
+        if(!p1->next) {addT(newV);}
+
+        p = p->next;
     }
-
-    if(!p->next) {addT(newV);}
 
     Node* t2 = head;
     head = head->next;

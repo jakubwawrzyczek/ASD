@@ -44,7 +44,7 @@ public:
 
 
     // ------------------------------------ LAB 4 ------------------------------------
-    void lab4zad1(int newV);        // wstawianie do posortowanej listy
+    void lab4zad1(Node* H);        // wstawianie do posortowanej listy
     void lab4zad2(int x, int y);    // zamiana kolejnoscia elementow pomiedzy dwoma elementami
     void lab4zad3();                // zadanie z okregami
 };
