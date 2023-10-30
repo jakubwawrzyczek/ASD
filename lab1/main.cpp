@@ -42,7 +42,7 @@ list3.addT(9);
 list3.addT(10);
 list3.addT(11);
 
-list3.lab4zad2(2, 9);
+list3.lab4zad2(3, 7);
 
 list3.printList();
 

@@ -386,7 +386,7 @@ void List::lab4zad2(int x, int y) {
         if (p->next->val == x) {
             px = p->next;
             b_px = p;
-        } else if (p->next->val == y) {
+        } else if (p->val == y) {
             py = p->next;
             b_py = p;
         }
@@ -422,7 +422,7 @@ void List::lab4zad2(int x, int y) {
     List reversedList;
     reversedList.addH(0); // pomocniczy head
 
-    while (tempList.head) {
+    while (tempList.head) { // przenoszenie z tempList do reversedList w odwroconej kolejnosci
         Node *temphead = tempList.head;
 
         tempList.head = tempList.head->next;
@@ -431,15 +431,37 @@ void List::lab4zad2(int x, int y) {
     }
 
     cout << tempList.head; // templist w calosci wyczyszczony
+
+    Node* t = reversedList.head; // szukanie ostatniej wartosci reversedList zeby usunac pomocniczy head
+    while (t->next->next) {
+        t = t->next;
+    }
+
+    Node* t2 = t->next;
+    reversedList.tail = t;
+    t->next= nullptr;
+    delete t2;
+
     reversedList.printList();
 
     // 3. wlozenie tego spowrotem do oryginalnej listy
 
+    b_px->next = reversedList.head;
+    tail = reversedList.tail;
+    tail->next = py;
+
+    Node* t4 = tail;
+
+    while (t4->next) {
+        t4 = t4->next;
+    }
+
+    tail = t4;
 
     // usuniecie pomocniczego heada
-    Node* t2 = head;
+    Node* t3 = head;
     head = head->next;
-    delete t2;
+    delete t3;
 
     }
 
