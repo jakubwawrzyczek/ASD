@@ -494,3 +494,8 @@ void List::merge(List* L2) {
     printList();
 
 }
+
+
+// ------------------------------------ LAB 5 ------------------------------------
+// Dzelenie listy wzgledem jakiegos elementu ktory jest na tej liscie
+// Wybieramy pierwszy(1)/srodkowy(2)/ostatni(3) element
