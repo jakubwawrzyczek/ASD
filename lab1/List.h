@@ -33,6 +33,7 @@ public:
     void lab2zad4();    // Duplikowanie calej listy (Dodawanie kopii listy na koniec)
     void lab2zad5();    // Usuwanie co drugiego elementu z listy
     void lab2zad6();    // Usuwanie kazdego elementu ktorego wartosc jest liczba parzysta
+    void lab2zad7();    // Usuwanie z przed glowy
 
 
     // ------------------------------------ LAB 3 ------------------------------------
@@ -47,6 +48,7 @@ public:
     void lab4zad1(Node* H);        // wstawianie do posortowanej listy
     void lab4zad2(int x, int y);    // zamiana kolejnoscia elementow pomiedzy dwoma elementami
     void lab4zad3();                // zadanie z okregami
+    void merge(List* L2);
 };
 
 

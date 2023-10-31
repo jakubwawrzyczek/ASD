@@ -208,6 +208,14 @@ void List::lab2zad6() {
     }
 }
 
+// Usuwanie z przed glowy
+void List::lab2zad7() {
+    Node* temp = head;
+
+    head = head->next;
+    delete temp;
+}
+
 
 
 // ------------------------------------ LAB 3 ------------------------------------
@@ -467,5 +475,22 @@ void List::lab4zad2(int x, int y) {
 
 // zadanie z okregami
 void List::lab4zad3() {
+
+}
+
+// laczenie dwoch list
+void List::merge(List* L2) {
+    Node* L1p = head;
+    Node* L2h = L2->head;
+
+    while (L1p) {
+        if (L1p->next == nullptr) {
+            break;
+        } else {L1p = L1p->next;}
+    }
+
+    L1p->next = L2h;
+
+    printList();
 
 }
