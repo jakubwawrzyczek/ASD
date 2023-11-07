@@ -49,6 +49,10 @@ public:
     void lab4zad2(int x, int y);    // zamiana kolejnoscia elementow pomiedzy dwoma elementami
     void lab4zad3();                // zadanie z okregami
     void merge(List* L2);
+
+
+    //  ------------------------------------ LAB 5 ------------------------------------
+    void lab5zad1(List *L1, List *L2, int option);
 };
 
 

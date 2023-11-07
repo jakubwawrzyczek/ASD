@@ -496,6 +496,67 @@ void List::merge(List* L2) {
 }
 
 
-// ------------------------------------ LAB 5 ------------------------------------
-// Dzelenie listy wzgledem jakiegos elementu ktory jest na tej liscie
-// Wybieramy pierwszy(1)/srodkowy(2)/ostatni(3) element
+//  ------------------------------------ LAB 5 ------------------------------------
+void List::lab5zad1(List *L1, List *L2, int option) {
+    // lista na ktorej wykonujemy operacje musi miec co najmniej 2 elementy
+    Node* wzgledny = nullptr;
+
+    L1->addH(0);
+    L2->addH(0); // pomocnicze heady
+
+    // option = 1 -> bierzemy pierwszy element
+    if (option == 1) {
+        // przypisujemy head
+        wzgledny = head;
+        head = head->next;
+    }
+
+    // option = 2 -> bierzemy srodkowy element
+    else if (option == 2) {
+        // tu trzeba znalezc srodkowy element i go przypisac
+        // ale narazie pracuje na 2 pozostalych
+
+    }
+
+    // option = 3 -> bierzemy ostatni element
+    else if (option == 3) {
+        // tu przechodzimy do ostatniego elementu (kiedy ->next bedzie rowny null) i przypisujemy go
+        Node* p = head;
+
+        while (p->next->next) {
+            p = p->next;
+        }
+        wzgledny = p->next;
+        p->next = nullptr;
+
+    }
+
+    // option poza obszarem 1-3
+    else {
+        cout << "Niepoprawna wartosc zmiennej option." << endl;
+        return;
+    }
+
+    // Tutaj rozdzielamy reszte wartosci
+
+    Node* p = head;
+
+    while (p) {
+        if (p->val < wzgledny->val) {
+            // dodajemy do listy z wiekszymi
+            Node* nowa = p;
+            head = head->next;
+
+            L1->tail->next = nowa;
+            nowa->next = nullptr;
+
+            L1->tail = L1->tail->next;
+        } else if (p->val > wzgledny->val) {
+            p = p->next;
+            // dodajemy do listy z mniejszymi
+        } else {
+            p = p->next;
+        }
+    }
+
+}

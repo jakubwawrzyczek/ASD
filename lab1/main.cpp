@@ -5,30 +5,6 @@
 using namespace std;
 
 int main() {
-
-//List list1;
-//List list2;
-//
-////lista do wlozenia
-//list1.addT(5);
-//list1.addT(3);
-//list1.addT(2);
-//list1.addT(4);
-//list1.addT(6);
-//list1.addT(7);
-//
-////lista do ktorej bedziemy wkladac
-//list2.addT(1);
-//list2.addT(2);
-//list2.addT(3);
-//list2.addT(4);
-//list2.addT(5);
-//list2.addT(6);
-//
-//list2.lab4zad1(list1.head);
-//
-//list2.printList();
-
 //List list3;
 //list3.addT(1);
 //list3.addT(2);
@@ -46,24 +22,17 @@ int main() {
 //
 //list3.printList();
 
-
-//List list4;
-//list4.addH(1);
-//list4.addH(2);
-//list4.addH(3);
-//list4.addH(4);
+//List L1, L2, L3;
+//L1.addT(3);
+//L1.addT(2);
+//L1.addT(1);
+//L1.addT(4);
+//L1.addT(5);
+//L1.addT(6);
 //
-//list4.lab2zad7();
-//list4.printList();
-
-//List list5;
-//list5.addT(1);
-//list5.addT(2);
 //
-//List list6;
-//list6.addT(3);
-//list6.addT(4);
-//
-//list5.merge(&list6);
-
+//L1.lab5zad1(&L2, &L3, 1);
+//L1.printList();
+//L2.printList();
+//L3.printList();
 }
