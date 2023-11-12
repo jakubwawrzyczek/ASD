@@ -111,12 +111,17 @@ Node* poprzednik(Node* root, int val) {
     // czy ma lewe poddrzewo, jesli tak to szukamy w nim najwiekszej wartosci
     if (element->L) {return max(element->L);}
 
-    // jesli nie ma lewego i jest lewym synem to przechodzimy do jego rodzica i idziemy do gory az element bedzie prawym
-    // synem swojego rodzica i zwracamy go
+    // jesli nie ma lewego poddrzewa i jest lewym synem to przechodzimy do jego rodzica i idziemy do gory az element bedzie
+    // prawym synem swojego rodzica i zwracamy go
     else if (!element->L && element == element->P->L) {
         while (element == element->P->L) {
             element = element->P;
         }
+        return element->P;
+    }
+
+    // jesli nie ma lewego poddrzewa i jest prawym synem to zwracamy rodzica
+    else if (!element->L && element == element->P->R) {
         return element->P;
     }
 }
@@ -133,7 +138,7 @@ Node* nastepnik(Node* root, int val) {
     // czy ma prawe poddrzewo, jesli tak to szukamy w nim najmniejszej wartosci
     if (element->R) {return min(element->R);}
 
-    // jesli nie ma prawego i jest prawym synem to przechodzimy do jego rodzica i idziemy do gory az element bedzie lewym
+    // jesli nie ma prawego poddrzewa i jest prawym synem to przechodzimy do jego rodzica i idziemy do gory az element bedzie lewym
     // synem swojego rodzica i zwracamy go
     else if (!element->R && element == element->P->R) {
         while (element == element->P->R) {
@@ -142,7 +147,7 @@ Node* nastepnik(Node* root, int val) {
         return element->P;
     }
 
-    // jesli nie ma prawego i jest lewym synem to zwracamy rodzica
+    // jesli nie ma prawego poddrzewa i jest lewym synem to zwracamy rodzica
     else if (!element->R && element == element->P->L) {
         return element->P;
     }
@@ -196,12 +201,10 @@ int main() {
     insert(root, 19);
     insert(root, 24);
     insert(root, 67);
-    insert(root, 18);
-
 
 //    print2D(root);
 //    cout << search(root, 50)->val << endl;
 //    cout << min(root)->val << endl;
-    cout << poprzednik(root, 17)->val << endl;
+//    cout << nastepnik(root, 76)->val << endl;
 //    inOrder(root);
 }
