@@ -254,13 +254,41 @@ void deleteNode(Node* root, int nodeVal) {
 }
 
 void deleteLeaves(Node* root) {
-    
+
 }
 
-void rotation(Node* root, string side) {
+void rotate(Node* &root, string side) {
     if (side == "R") {
+        // jezeli nie ma prawego syna to nie obrocimy w prawo
+        if (!root->R) return;
+
+        if (root->R->L) {
+            // zapisuje aktualnego lewego syna przyszlego roota
+            Node* temp = root->R->L;
+
+            // obecny root staje sie lewym synem przyszlego roota
+            root->R->L = root;
+
+            // prawy syn obecnego roota zostaje nowym rootem
+            root = root->R;
+
+            // ustawiam parentow zeby wszystko sie zgadzalo
+            root->P = nullptr;
+            root->L->P = root;
+            temp->P = root->L;
+
+            // lewy syn nowego roota idzie jako prawy syn starego roota
+            root->L->R = temp;
+        } else {
+            root->R->L = root;
+            root = root->R;
+            root->L->P = root;
+            root->P= nullptr;
+            root->L->R = nullptr;
+        }
 
     } else if (side == "L") {
+        
 
     } else {
         cout << "Niepoprawna wartosc zmiennej side, wybierz \"L\" lub \"R\"" << endl;
@@ -268,7 +296,7 @@ void rotation(Node* root, string side) {
 }
 
 // It does reverse inorder traversal
-void print2DUtil(Node* root, int space)
+void print2DUtil(Node* &root, int space)
 {
     // Base case
     if (root == NULL)
@@ -317,10 +345,14 @@ int main() {
     insert(root, 24);
 
     print2D(root);
+    rotate(root, "R");
+    cout << "\n\n---------------------------------------\n\n";
 
-    cout << "\n\n\n\n";
+    rotate(root, "R");
+    cout << "\n\n---------------------------------------\n\n";
 
-    deleteLeaves(root);
+    rotate(root, "R");
+    cout << "\n\n---------------------------------------\n\n";
 
     print2D(root);
 //    inOrder(root);
