@@ -254,45 +254,7 @@ void deleteNode(Node* root, int nodeVal) {
 }
 
 void deleteLeaves(Node* root) {
-    if (!root) {
-        return;
-    }
-
-    if (root->L) {
-        if (!root->L->L && !root->L->R) {
-            Node* temp = root->L;
-            root->L = nullptr;
-            delete temp;
-        } else {
-            deleteLeaves(root->L);
-        }
-    }
-
-    if (root->R) {
-        if (!root->R->L && !root->R->R) {
-            Node* temp = root->R;
-            root->R = nullptr;
-            delete temp;
-        } else {
-            deleteLeaves(root->R);
-        }
-    }
-
-    // If the current node is a leaf, update the parent's pointer and delete the node
-    if (!root->L && !root->R) {
-        Node* parent = root->P;
-
-        if (parent) {
-            if (root == parent->L) {
-                parent->L = nullptr;
-            } else if (root == parent->R) {
-                parent->R = nullptr;
-            }
-        }
-
-        delete root;
-        root = nullptr;
-    }
+    
 }
 
 void rotation(Node* root, string side) {
