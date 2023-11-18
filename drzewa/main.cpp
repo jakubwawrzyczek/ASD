@@ -256,14 +256,22 @@ void deleteNode(Node* root, int nodeVal) {
 void deleteLeaf(Node* &root) {
     if(!root) return;
 
-    // jesli root nie ma synow to sam jest lisciem wiec usuwamy go
-    if(!root->L && !root->R) {
+    if (root->L || root->R) {
+        if (root->L) {
+            deleteLeaf(root->L);
+        }
+
+        if (root->R) {
+            deleteLeaf(root->R);
+        }
+        return;
+    }
+
+    else {
         Node* temp = root;
         root = nullptr;
         delete temp;
     }
-
-
 }
 
 void rotate(Node* &root, string side) {
