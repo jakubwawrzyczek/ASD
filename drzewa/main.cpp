@@ -1,5 +1,3 @@
-//#include <bits/stdc++.h>
-
 #include <iostream>
 using namespace std;
 #define COUNT 10
@@ -11,6 +9,7 @@ struct Node {
     int val;
 };
 
+// LAB1
 void insert(Node* &root, int newValue, Node* parent = nullptr) {
     // sprawdzamy czy w korzeniu jest juz jakas wartosc, jesli nie to wstawiamy tam
     if (!root) {
@@ -44,31 +43,33 @@ void inOrder(Node* root)
 }
 
 Node* search(Node* root, int searchedVal) {
-    if (!root) {return nullptr;}
 
-    while (root) {
-        if (root->val == searchedVal) {
-            return root;
-        } else if (searchedVal > root->val) {
-            root = root->R;
-        } else if (searchedVal < root->val) {
-            root = root->L;
-        }
-    }
+    // tu cos nie dziala bo jak nie ma wartosci w drzewie to zwraca drugi element po lewej
+//    if (!root) {return nullptr;}
+//
+//    while (root) {
+//        if (root->val == searchedVal) {
+//            return root;
+//        } else if (searchedVal > root->val) {
+//            root = root->R;
+//        } else if (searchedVal < root->val) {
+//            root = root->L;
+//        }
+//    }
 
 // rekurencyjnie
-//    if (!root) {
-//        cout << "Nie znaleziono podanej wartosci" << endl;
-//        return nullptr;
-//    } else if (root->val == searchedVal) {
-//        return root;
-//    }
-//
-//    if (searchedVal >= root->val) {
-//        return search(root->R, searchedVal);
-//    } else {
-//        return search(root->L, searchedVal);
-//    }
+    if (!root) {
+        cout << "Nie znaleziono podanej wartosci" << endl;
+        return nullptr;
+    } else if (root->val == searchedVal) {
+        return root;
+    }
+
+    if (searchedVal >= root->val) {
+        return search(root->R, searchedVal);
+    } else {
+        return search(root->L, searchedVal);
+    }
 
 }
 
@@ -100,7 +101,7 @@ Node* max(Node* root) {
 //    }
 }
 
-Node* poprzednik(Node* root, int val) {
+Node* predecessor(Node* root, int val) {
     Node* element = search(root, val);
 
     if (element == min(root)) {
@@ -126,7 +127,7 @@ Node* poprzednik(Node* root, int val) {
     }
 }
 
-Node* nastepnik(Node* root, int val) {
+Node* successor(Node* root, int val) {
     Node* element = search(root, val);
 
     // jesli element jest maksymalnym z drzewa to nie ma nastepnika wiec zwracamy jego samego
@@ -150,6 +151,157 @@ Node* nastepnik(Node* root, int val) {
     // jesli nie ma prawego poddrzewa i jest lewym synem to zwracamy rodzica
     else if (!element->R && element == element->P->L) {
         return element->P;
+    }
+}
+
+// LAB2
+void deleteNode(Node* root, int nodeVal) {
+    Node* element = search(root, nodeVal);
+
+    if (!element) { return; }
+
+    // zapisuje sobie czy ma danego syna zeby pozniej tego nie sprawdzac za kazdym razem w warunkach
+    bool rightSon = (element->R) != nullptr;
+    bool leftSon = (element->L) != nullptr;
+
+    // pierwszy przypadek — wezel nie ma zadnego syna
+    if (!rightSon && !leftSon) {
+        cout << "Brak synow" << endl; // sprawdzenie, czy dalem poprawne warunki
+
+        // no i teraz chcemy po prostu to usunac, nic pod nim nie ma wiec nic nie musimy przenosic
+
+        // jezeli element jest prawym synem swojego rodzica to...
+        if (element == element->P->R) { element->P->R = nullptr; }
+
+        // jezeli element jest lewym synem swojego rodzica to...
+        else if (element == element->P->L) { element->P->L = nullptr; }
+
+        // jezeli tu przejdzie to mamy blad wiec printuje error albo obsluguje go jakos
+        else {
+            cout << "Blad w instrukcji warunkowej sprawdzajacej czy element jest prawym czy lewym synem, prawdopodobnie "
+                    "zaburzona zostala struktura drzewa";}
+
+        // no i na koniec po prostu usuwam tego node'a
+        delete element;
+    }
+
+    // drugi przypadek — wezel ma tylko jednego syna
+    else if ((rightSon && !leftSon) || (leftSon && !rightSon)) {
+        cout << "Jeden syn" << endl; // sprawdzenie, czy dalem poprawne warunki
+
+        // teraz musimy go znowu usunac, ale najpierw zmieniamy wskaznik ojca Elementu na syna elementu
+
+        Node* elementSon = (element->R) ? element->R : element->L; // syn elementu ktory usuwamy
+
+        // jezeli element jest prawym synem swojego rodzica to zapisujemy syna elementu do prawego syna rodzica elementu
+        if (element == element->P->R) { element->P->R = elementSon; }
+
+        // jezeli element jest lewym synem swojego rodzica to zapisujemy syna elementu do lewego syna rodzica elementu
+        else if (element == element->P->L) { element->P->L = elementSon; }
+
+        // jezeli tu przejdzie to mamy blad wiec printuje error albo obsluguje go jakos
+        else {
+            cout << "Blad w instrukcji warunkowej sprawdzajacej czy element jest prawym czy lewym synem, prawdopodobnie "
+                    "zaburzona zostala struktura drzewa";}
+
+        // no i na koniec po prostu usuwam tego node'a
+        delete element;
+    }
+
+    // trzeci przypadek — wezel ma obu synow
+    else {
+        cout << "Dwoch synow" << endl; // sprawdzenie, czy dalem poprawne warunki
+
+        // zapisujemy wskaznik do nastepnika
+        Node* successorPointer = successor(root, element->val);
+
+        // sprawdzamy synow nastepnika (moze miec maksymalnie jednego wiec wystarczy nam jedna zmienna przetrzymujaca to
+        Node* successorSon = nullptr;
+
+        if (successorPointer->R) { successorSon = successorPointer->R; } // jesli ma prawego syna to zapisujemy go w zmiennej przechowujacej syna
+        else if (successorPointer->L) { successorSon = successorPointer->L; } // jesli ma lewego syna to zapisujemy go w zmiennej przechowujacej syna
+
+        // jezeli nastepnik nie ma synow to po prostu zastepujemy wartosc wezla ktory usuwamy wartoscia nastepnika a ten
+        // usuwamy
+        if (!successorSon) {
+            // zastepujemy wartosc
+            element->val = successorPointer->val;
+
+            // nie musimy sprawdzac ktorym synem swojego rodzica jest nastepnik bo jesli bylby prawym to nie bylby nastepnikiem
+            // usuwamy go
+            successorPointer->P->L = nullptr;
+
+            delete successorPointer;
+
+        }
+
+        // jezeli nastepnik ma jednego syna to aby nie dawac zbednych polecen zmieniamy wartosc elementu ktory usuwamy na
+        // taka jaka ma nastepnik a pozniej w jego miejsce wstawiamy jego syna i usuwamy nastepnik
+        else {
+            // zastepujemy wartosc
+            element->val = successorPointer->val;
+
+            // nie musimy sprawdzac ktorym synem swojego rodzica jest nastepnik bo jesli bylby prawym to nie bylby nastepnikiem
+            // usuwamy go
+            Node* successorParentPointer = successorPointer->P;
+
+            successorPointer->P->L = successorPointer->P;
+
+            delete successorPointer;
+
+        }
+    }
+}
+
+void deleteLeaves(Node* root) {
+    if (!root) {
+        return;
+    }
+
+    if (root->L) {
+        if (!root->L->L && !root->L->R) {
+            Node* temp = root->L;
+            root->L = nullptr;
+            delete temp;
+        } else {
+            deleteLeaves(root->L);
+        }
+    }
+
+    if (root->R) {
+        if (!root->R->L && !root->R->R) {
+            Node* temp = root->R;
+            root->R = nullptr;
+            delete temp;
+        } else {
+            deleteLeaves(root->R);
+        }
+    }
+
+    // If the current node is a leaf, update the parent's pointer and delete the node
+    if (!root->L && !root->R) {
+        Node* parent = root->P;
+
+        if (parent) {
+            if (root == parent->L) {
+                parent->L = nullptr;
+            } else if (root == parent->R) {
+                parent->R = nullptr;
+            }
+        }
+
+        delete root;
+        root = nullptr;
+    }
+}
+
+void rotation(Node* root, string side) {
+    if (side == "R") {
+
+    } else if (side == "L") {
+
+    } else {
+        cout << "Niepoprawna wartosc zmiennej side, wybierz \"L\" lub \"R\"" << endl;
     }
 }
 
@@ -189,22 +341,25 @@ int main() {
 
     Node* root = nullptr;
 
+    insert(root, 10);
+    insert(root, -15);
+    insert(root, 30);
+    insert(root, -30);
+    insert(root, 0);
+    insert(root, 20);
+    insert(root, 60);
+    insert(root, 15);
+    insert(root, 26);
     insert(root, 50);
-    insert(root, 17);
-    insert(root, 72);
-    insert(root, 12);
-    insert(root, 23);
-    insert(root, 54);
-    insert(root, 76);
-    insert(root, 9);
-    insert(root, 14);
-    insert(root, 19);
+    insert(root, 80);
     insert(root, 24);
-    insert(root, 67);
 
-//    print2D(root);
-//    cout << search(root, 50)->val << endl;
-//    cout << min(root)->val << endl;
-//    cout << nastepnik(root, 76)->val << endl;
+    print2D(root);
+
+    cout << "\n\n\n\n";
+
+    deleteLeaves(root);
+
+    print2D(root);
 //    inOrder(root);
 }
