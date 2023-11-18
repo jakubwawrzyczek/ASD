@@ -253,7 +253,16 @@ void deleteNode(Node* root, int nodeVal) {
     }
 }
 
-void deleteLeaves(Node* root) {
+void deleteLeaf(Node* &root) {
+    if(!root) return;
+
+    // jesli root nie ma synow to sam jest lisciem wiec usuwamy go
+    if(!root->L && !root->R) {
+        Node* temp = root;
+        root = nullptr;
+        delete temp;
+    }
+
 
 }
 
@@ -289,31 +298,31 @@ void rotate(Node* &root, string side) {
 
     } else if (side == "L") {
         // jezeli nie ma prawego syna to nie obrocimy w prawo
-        if (!root->R) return;
+        if (!root->L) return;
 
-        if (root->R->L) {
+        if (root->L->R) {
             // zapisuje aktualnego lewego syna przyszlego roota
-            Node* temp = root->R->L;
+            Node* temp = root->L->R;
 
             // obecny root staje sie lewym synem przyszlego roota
-            root->R->L = root;
+            root->L->R = root;
 
             // prawy syn obecnego roota zostaje nowym rootem
-            root = root->R;
+            root = root->L;
 
             // ustawiam parentow zeby wszystko sie zgadzalo
             root->P = nullptr;
-            root->L->P = root;
-            temp->P = root->L;
+            root->R->P = root;
+            temp->P = root->R;
 
             // lewy syn nowego roota idzie jako prawy syn starego roota
-            root->L->R = temp;
+            root->R->L = temp;
         } else {
-            root->R->L = root;
-            root = root->R;
-            root->L->P = root;
+            root->L->R = root;
+            root = root->L;
+            root->R->P = root;
             root->P= nullptr;
-            root->L->R = nullptr;
+            root->R->L = nullptr;
         }
 
     } else {
@@ -371,15 +380,7 @@ int main() {
     insert(root, 24);
 
     print2D(root);
-    rotate(root, "R");
-    cout << "\n\n---------------------------------------\n\n";
-
-    rotate(root, "R");
-    cout << "\n\n---------------------------------------\n\n";
-
-    rotate(root, "R");
-    cout << "\n\n---------------------------------------\n\n";
-
+    deleteLeaf(root);
     print2D(root);
 //    inOrder(root);
 }
