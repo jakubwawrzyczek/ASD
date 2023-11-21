@@ -388,7 +388,7 @@ int main() {
     insert(root, 24);
 
     print2D(root);
-    deleteLeaf(root);
+//    rotate(root, "R");
     print2D(root);
 //    inOrder(root);
 }
