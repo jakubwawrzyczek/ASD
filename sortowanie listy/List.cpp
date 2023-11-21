@@ -110,3 +110,39 @@ void List::removeByValue(int v) {
         delete temp2;
     }
 }
+    // ------------------------------------- SORTOWANIE LISTY -------------------------------------
+    void List::bubbleSort() {
+    printList(); // kontrolne printowanie
+    addH(-123456789); // wartownik
+    //--
+
+    bool moved = true;
+    Node* T = nullptr;
+
+    while(moved) {
+        moved = false;
+        Node* p = head;
+
+        while (p->next->next != T) {
+            Node* K = nullptr;
+
+            if (p->next->val > p->next->next->val) {
+                moved = true;
+
+                Node* temp = p->next;
+                p->next = temp->next;
+                temp->next = p->next->next;
+                p->next->next = temp;
+
+                K = p;
+            }
+
+            T = K;
+            p = p->next;
+        }
+    }
+
+    //--
+    removeH(); // usuwanie wartownika
+    printList(); // printowanie zeby zobaczyc co stalo sie z lista
+}

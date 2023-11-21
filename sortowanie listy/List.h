@@ -24,6 +24,9 @@ public:
     void removeT();                     // Usuwanie ostatniego elementu z listy
     void removeNext(Node* &pointer);    // Usuwanie nastepnika danego wskaznika w liscie
     void removeByValue(int v);          // Usuwanie elementu o podanej wartosci
+
+    // ------------------------------------- SORTOWANIE LISTY -------------------------------------
+    void bubbleSort();
 };
 
 
