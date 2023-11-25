@@ -5,13 +5,12 @@ using namespace std;
 
 // Wypisuje wszystkie elementy z listy
 void List::printList() {
-    cout << "\nhead: " << head->val << " tail: " << tail->val << endl;
-
     if (!head) {
         cout << "Lista jest pusta!";
     }
 
     else {
+        cout << "\nhead: " << head->val << endl;
         cout << "H ";
 
         Node* temp = head;
@@ -23,6 +22,23 @@ void List::printList() {
     }
 }
 
+int List::getLength() {
+    if (!head) {return 0;}
+
+    else {
+        int len = 1;
+        Node* p = head;
+
+        while (p->next) {
+            p = p->next;
+            len++;
+        }
+
+        return len;
+    }
+
+
+}
 
 // ------------------------------------ DODAWANIE ELEMENTOW ------------------------------------
 // Dodawanie elementu na poczatek listy
@@ -31,22 +47,6 @@ void List::addH(int newV) {
 
     newNode->next=head;
     head = newNode;
-
-    if (tail == nullptr) {
-        tail = newNode;
-    }
-}
-
-// Dodawanie elementu na koniec listy
-void List::addT(int newV) {
-    Node* newNode = new Node(newV);
-    if(!head) {
-        head = newNode;
-        tail = newNode;
-    } else {
-        tail->next = newNode;
-        tail = tail->next;
-    }
 }
 
 // Dodawanie elementu po elemencie do ktorego przekazany jest wskaznik
@@ -64,20 +64,6 @@ void List::removeH() {
     Node* temp = head;
     head = head->next;
 
-    delete temp;
-}
-
-// Usuwanie ostatniego elementu z listy
-void List::removeT() {
-    Node* p = head;
-    Node* temp = tail;
-
-    while (p->next != tail) {
-        p = p->next;
-    }
-
-    tail = p;
-    p->next = nullptr;
     delete temp;
 }
 
@@ -112,37 +98,76 @@ void List::removeByValue(int v) {
 }
     // ------------------------------------- SORTOWANIE LISTY -------------------------------------
     void List::bubbleSort() {
-    printList(); // kontrolne printowanie
-    addH(-123456789); // wartownik
-    //--
+        printList(); // kontrolne printowanie
+        addH(-123456789); // wartownik
+        //--
 
-    bool moved = true;
-    Node* T = nullptr;
+        bool moved = true;
+        Node* T = nullptr;
 
-    while(moved) {
-        moved = false;
-        Node* p = head;
+        while(moved) {
+            moved = false;
+            Node* p = head;
 
-        while (p->next->next != T) {
-            Node* K = nullptr;
+            while (p->next->next != T) {
+                Node* K = nullptr;
 
-            if (p->next->val > p->next->next->val) {
-                moved = true;
+                if (p->next->val > p->next->next->val) {
+                    moved = true;
 
-                Node* temp = p->next;
-                p->next = temp->next;
-                temp->next = p->next->next;
-                p->next->next = temp;
+                    Node* temp = p->next;
+                    p->next = temp->next;
+                    temp->next = p->next->next;
+                    p->next->next = temp;
 
-                K = p;
+                    K = p;
+                }
+
+                T = K;
+                p = p->next;
             }
-
-            T = K;
-            p = p->next;
         }
+
+        //--
+        removeH(); // usuwanie wartownika
     }
 
-    //--
-    removeH(); // usuwanie wartownika
-    printList(); // printowanie zeby zobaczyc co stalo sie z lista
+    void List::sortowaniePrzezWybieranie() {
+        printList(); // kontrolne printowanie
+        addH(-123456789); // wartownik
+        //--
+
+        List tempList;
+
+        while (head->next) {
+            // wyszukiwanie maksymalnej wartosci
+            Node* beforeMax = head;
+            Node* p = head;
+
+            while(p->next) {
+                if (p->next->val > beforeMax->next->val) {
+                    beforeMax = p;
+                }
+                p = p->next;
+            }
+
+            Node* temp = beforeMax->next;
+
+            // usuwanie z oryginalnej listy
+            beforeMax->next = beforeMax->next->next;
+
+            // przenoszenie jej do tymczasowej listy
+            temp->next = tempList.head;
+            tempList.head = temp;
+        }
+
+        //--
+        removeH(); // usuwanie wartownika
+
+        head = tempList.head;
+        tempList.head = nullptr;
+}
+
+void List::combSort() {
+    printList();
 }
