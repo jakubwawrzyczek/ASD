@@ -98,7 +98,6 @@ void List::removeByValue(int v) {
 }
     // ------------------------------------- SORTOWANIE LISTY -------------------------------------
     void List::bubbleSort() {
-        printList(); // kontrolne printowanie
         addH(-123456789); // wartownik
         //--
 
@@ -133,7 +132,6 @@ void List::removeByValue(int v) {
     }
 
     void List::sortowaniePrzezWybieranie() {
-        printList(); // kontrolne printowanie
         addH(-123456789); // wartownik
         //--
 
@@ -169,5 +167,44 @@ void List::removeByValue(int v) {
 }
 
 void List::combSort() {
-    printList();
+    int len = getLength();
+    int gap = len;
+    float w = 1.3;
+    bool swapped = true;
+
+    while (swapped || gap > 1) {
+        gap = gap / w;
+        swapped = false;
+
+        // optymalizacja algorytmu
+        if (gap == 9 || gap == 10) { gap = 8; }
+        // gap nie moze byc mniejszy niz 1
+        else if (gap < 1) { gap = 1; }
+
+        for (int i = 0 ; i < len - gap; i++) {
+            Node* a1 = head;
+
+            // tu bierzemy pierwszy element do porownania
+            for (int j = 0; j < i; j++) {
+                a1 = a1->next;
+            }
+
+            Node* a2 = a1;
+            // tu bierzemy drugi element do porownania
+            for (int k = 0; k < gap; k++) {
+                a2 = a2->next;
+            }
+
+            if (a1->val > a2->val) {
+                // swap a1 z a2
+                // pozniej musze to zmienic na zamiane wskaznikow a nie wartosci
+                int temp = a1->val;
+
+                a1->val = a2->val;
+                a2->val = temp;
+
+                swapped = true;
+            }
+        }
+    }
 }
