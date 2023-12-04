@@ -12,6 +12,8 @@ public:
 
     void printList();   // Wyswietlanie listy
     int getLength();
+    void merge(List &L1, List &L2);
+    void split(List &L1, List &L2);
 
     // ------------------------------------ DODAWANIE ELEMENTOW ------------------------------------
     void addH(int newV);                // Dodawanie elementu na poczatek listy
@@ -27,6 +29,7 @@ public:
     void bubbleSort();
     void sortowaniePrzezWybieranie();
     void combSort();
+    void mergeSort();
 };
 
 

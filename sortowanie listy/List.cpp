@@ -36,9 +36,66 @@ int List::getLength() {
 
         return len;
     }
-
-
 }
+
+void List::merge(List &L1, List &L2) {
+    // ma dwie listy ktore chcemy wlozyc do tej na ktorej wywolujemy
+
+    addH(0);
+    Node* p = head;
+
+    while (L1.head && L2.head) {
+        if (L1.head->val > L2.head->val) {
+            p->next = L1.head;
+            L1.head = L1.head->next;
+        }
+
+        else {
+            p->next = L2.head;
+            L2.head = L2.head->next;
+        }
+
+        p=p->next;
+    }
+
+    while (L1.head && !L2.head) {
+        p->next = L1.head;
+        L1.head = L1.head->next;
+        p=p->next;
+    }
+
+    while (!L1.head && L2.head) {
+        p->next = L2.head;
+        L2.head = L2.head->next;
+        p=p->next;
+    }
+
+    removeH();
+}
+
+void List::split(List &L1, List &L2) {
+    // ma liste na ktorej to wywolujemy dzielic na 2 i wlozyc do nich wartosci a ta pierwsza zostawic pusta
+
+    Node* p = head;
+    int c = 0;
+
+    while (p) {
+        p = p->next;
+        c++;
+    }
+
+    p = head;
+
+    for (int i = 0; i < c / 2 - 1 ; i++) {
+        p = p->next;
+    }
+
+    L1.head = p->next;
+    L2.head = head;
+    p->next = nullptr;
+    head = nullptr;
+}
+
 
 // ------------------------------------ DODAWANIE ELEMENTOW ------------------------------------
 // Dodawanie elementu na poczatek listy
@@ -207,4 +264,22 @@ void List::combSort() {
             }
         }
     }
+}
+
+void List::mergeSort() {
+
+    List L1 = nullptr;
+    List L2 = nullptr;
+
+    if (head && head->next) {
+
+
+        split(L1, L2);
+
+        L1.mergeSort();
+        L2.mergeSort();
+    }
+
+    merge(L1, L2);
+
 }

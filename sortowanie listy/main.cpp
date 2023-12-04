@@ -227,28 +227,29 @@ int main() {
 
 
     // --------------------------------
+    // Wyswietlanie czasow sortowan
+//    cout << "Bubble Sort" << endl;
+//    auto start = high_resolution_clock::now();
+//    list1.bubbleSort();
+//    auto stop = high_resolution_clock::now();
+//    auto duration = duration_cast<microseconds>(stop - start);
+//    cout << "Czas sortowania: " << duration.count()  << " mikrosekund" << endl;
+//
+//    cout << "\nSortowanie przez wybieranie" << endl;
+//    start = high_resolution_clock::now();
+//    list2.sortowaniePrzezWybieranie();
+//    stop = high_resolution_clock::now();
+//    duration = duration_cast<microseconds>(stop - start);
+//    cout << "Czas sortowania: " << duration.count() << " mikrosekund" << endl;
+//
+//    cout << "\nComb Sort" << endl;
+//    start = high_resolution_clock::now();
+//    list3.combSort();
+//    stop = high_resolution_clock::now();
+//    duration = duration_cast<microseconds>(stop - start);
+//    cout << "Czas sortowania: " << duration.count() << " mikrosekund" << endl;
 
 
-
-    cout << "Bubble Sort" << endl;
-    auto start = high_resolution_clock::now();
-    list1.bubbleSort();
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(stop - start);
-    cout << "Czas sortowania: " << duration.count()  << " mikrosekund" << endl;
-
-    cout << "\nSortowanie przez wybieranie" << endl;
-    start = high_resolution_clock::now();
-    list2.sortowaniePrzezWybieranie();
-    stop = high_resolution_clock::now();
-    duration = duration_cast<microseconds>(stop - start);
-    cout << "Czas sortowania: " << duration.count() << " mikrosekund" << endl;
-
-    cout << "\nComb Sort" << endl;
-    start = high_resolution_clock::now();
-    list3.combSort();
-    stop = high_resolution_clock::now();
-    duration = duration_cast<microseconds>(stop - start);
-    cout << "Czas sortowania: " << duration.count() << " mikrosekund" << endl;
-
+//    list1.mergeSort();
+//    list1.printList();
 }
