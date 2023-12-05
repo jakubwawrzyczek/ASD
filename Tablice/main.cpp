@@ -114,7 +114,14 @@ void quickSort(int* arr, long l, long r) {
 
 // Hybrid Sort (quick sort + bubble sort)
 void hybridSort(int* arr, long l, long r) {
-    
+    if (r - l < 11) {
+        bubbleSort(arr, l, r);
+    }
+    if (l < r) {
+        long p = partition(arr, l, r);
+        quickSort(arr, l, p - 1);
+        quickSort(arr, p + 1 , r);
+    }
 }
 
 
