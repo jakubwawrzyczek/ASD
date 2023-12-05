@@ -273,4 +273,63 @@ int main() {
     cout << "Czas sortowania (dluga / odwrotnie posortowana / hybrid sort): " << duration.count() << "ms" << endl;
 
     // ---------- TABLICA WYPELNIONA LOSOWYMI WARTOSCIAMI ----------
+    cout << "\n\n\n--- TABLICE ODWROTNIE POSORTOWANE ---\n";
+
+    int losowe_wartosci_krotka1[100] = {};
+    int losowe_wartosci_krotka2[100] = {};
+    int losowe_wartosci_krotka3[100] = {};
+
+    int losowe_wartosci_dluga1[100000] = {};
+    int losowe_wartosci_dluga2[100000] = {};
+    int losowe_wartosci_dluga3[100000] = {};
+
+    // wypelnianie tablic
+
+    // sortowanie i mierzenie czasu dla krotkiej
+
+    // bubble sort
+    start = std::chrono::high_resolution_clock::now();
+    bubbleSort(losowe_wartosci_krotka1, 100);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (krotka / odwrotnie posortowana / bubble sort): " << duration.count() << "ms" << endl;
+
+    // quick sort
+    start = std::chrono::high_resolution_clock::now();
+    quickSort(losowe_wartosci_krotka2, 0, 99);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (krotka / odwrotnie posortowana / quick sort): " << duration.count() << "ms" << endl;
+
+    // hybrid sort
+    start = std::chrono::high_resolution_clock::now();
+    hybridSort(losowe_wartosci_krotka3, 0, 99);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (krotka / losowe wartosci / hybrid sort): " << duration.count() << "ms" << endl;
+
+    cout << "\n\n";
+
+    // sortowanie i mierzenie czasu dla dlugiej
+
+    // bubble sort
+    start = std::chrono::high_resolution_clock::now();
+    bubbleSort(losowe_wartosci_dluga1, 10000);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (dluga / losowe wartosci / bubble sort): " << duration.count() << "ms" << endl;
+
+    // quick sort
+    start = std::chrono::high_resolution_clock::now();
+    quickSort(losowe_wartosci_dluga2, 0, 9999);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (dluga / losowe wartosci / quick sort): " << duration.count() << "ms" << endl;
+
+    // hybrid sort
+    start = std::chrono::high_resolution_clock::now();
+    hybridSort(losowe_wartosci_dluga3, 0, 9999);
+    end = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+    cout << "Czas sortowania (dluga / losowe wartosci / hybrid sort): " << duration.count() << "ms" << endl;
 }
