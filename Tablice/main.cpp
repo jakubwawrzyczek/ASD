@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 using namespace std;
 
 void printArray(int* arr, int size) {
@@ -273,7 +276,7 @@ int main() {
     cout << "Czas sortowania (dluga / odwrotnie posortowana / hybrid sort): " << duration.count() << "ms" << endl;
 
     // ---------- TABLICA WYPELNIONA LOSOWYMI WARTOSCIAMI ----------
-    cout << "\n\n\n--- TABLICE ODWROTNIE POSORTOWANE ---\n";
+    cout << "\n\n\n--- TABLICE Z LOSOWYMI WARTOSCIAMI ---\n";
 
     int losowe_wartosci_krotka1[100] = {};
     int losowe_wartosci_krotka2[100] = {};
@@ -284,6 +287,23 @@ int main() {
     int losowe_wartosci_dluga3[100000] = {};
 
     // wypelnianie tablic
+    srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    for (int i = 0; i < 9999; ++i) {
+        int losowaLiczba = rand() % 10000;
+
+        if (i < 100) {
+            losowe_wartosci_krotka1[i] = losowaLiczba;
+            losowe_wartosci_krotka2[i] = losowaLiczba;
+            losowe_wartosci_krotka3[i] = losowaLiczba;
+        }
+
+        losowe_wartosci_dluga1[i] = losowaLiczba;
+        losowe_wartosci_dluga2[i] = losowaLiczba;
+        losowe_wartosci_dluga3[i] = losowaLiczba;
+    }
+
+
 
     // sortowanie i mierzenie czasu dla krotkiej
 
