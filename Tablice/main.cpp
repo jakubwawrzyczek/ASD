@@ -312,14 +312,14 @@ int main() {
     bubbleSort(losowe_wartosci_krotka1, 100);
     end = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    cout << "Czas sortowania (krotka / odwrotnie posortowana / bubble sort): " << duration.count() << "ms" << endl;
+    cout << "Czas sortowania (krotka / losowe wartosci / bubble sort): " << duration.count() << "ms" << endl;
 
     // quick sort
     start = std::chrono::high_resolution_clock::now();
     quickSort(losowe_wartosci_krotka2, 0, 99);
     end = std::chrono::high_resolution_clock::now();
     duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-    cout << "Czas sortowania (krotka / odwrotnie posortowana / quick sort): " << duration.count() << "ms" << endl;
+    cout << "Czas sortowania (krotka / losowe wartosci / quick sort): " << duration.count() << "ms" << endl;
 
     // hybrid sort
     start = std::chrono::high_resolution_clock::now();
