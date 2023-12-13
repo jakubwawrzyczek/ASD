@@ -128,6 +128,24 @@ void hybridSort(int* arr, long l, long r) {
     }
 }
 
+// merge sort
+void mergeSort(int* arr, int len) {
+    int len1;
+    int len2;
+    if (len % 2 == 1) {
+        len1 = len/2 + 1;
+        len2 = len/2;
+    } else {
+        len1 = len/2;
+        len2 = len/2;
+    }
+
+    int tab1[len1];
+    int tab2[len2];
+
+    
+}
+
 
 int main() {
 //    int arr[24] = {NULL, 1, 2, 4, 6, 3, 2, 5, -3, 4 -12, -4, 55, 123, -23, -44, 0, -54, -56, -2003, -200, 20, 69, 60, 420};
