@@ -150,7 +150,30 @@ void printLN(Node** LN, int size) {
 // --------------- Lista krawedzi ---------------
 
 ListLE* LNtoLE(Node** LN, int size) {
+    ListLE* LE = new ListLE();
 
+    // to po to zeby nie musiec uwzgledniac przypadku kiedy w liscie jeszcze nic nie ma i musimy dac na heada, na koncu
+    // trzeba usunac
+    LE->head = new NodeLE(0, 0, 0);
+
+    NodeLE* last = LE->head;
+
+    // przechodzenie po kazdym elemencie LN i dodawanie go do Listy LE
+    for (int i = 0; i < size; i++) {
+        Node* curr = LN[i];
+
+        while (curr->next) {
+            last->next = new NodeLE(i, curr->next->vertex, curr->next->distance);
+
+            curr = curr->next;
+            last = last->next;
+        }
+    }
+
+    NodeLE* temp = LE->head;
+    LE->head = LE->head->next;
+    delete temp;
+    return LE;
 }
 
 ListLE* MNtoLE(int** MN, int size) {
