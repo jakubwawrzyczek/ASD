@@ -81,6 +81,13 @@ int** fileToMN(string path) {
 }
 
 void printMN(int** MN, int size) {
+    cout << "Macierz sąsiedztwa: " << endl;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            cout << MN[i][j] << "\t";
+        }
+        cout << endl;
+    }
 }
 
 // --------------- Lista sasiedztwa ---------------
