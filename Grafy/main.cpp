@@ -98,6 +98,33 @@ Node** MNtoLN(int** MN, int size) {
 //    numer punktu i ten element zawiera punkty ktore maja polaczenia z danym punktem
 //
 //    jesli w macierzu mamy wartosc 0 to znaczy ze nie ma polaczenia wiec nie dodajemy tego punktu
+
+    Node** LN = new Node*[size];
+    for (int i = 0; i < size; i++)
+        LN[i] = nullptr;
+
+    // dla kazdego punktu
+    for (int i = 0; i < size; i++) {
+        LN[i] = new Node(i, 0);
+        Node* curr = LN[i];
+
+        // bierzemy drugi punkt
+        for (int j = 0; j < size; j++) {
+            // a jesli odleglosc miedzy nimi jest wieksza od 0 (czyli istnieje polaczenie)
+            if (MN[i][j] > 0) {
+                // to dodajemy to polaczenie do tablicy
+                // dodaj do LN[i] point rowny j i dystans rowny MN[i][j]
+
+                while (curr->next) {
+                    curr = curr->next;
+                }
+
+                curr->next = new Node(j, MN[i][j]);
+            }
+
+        }
+    }
+    return LN;
 }
 
 Node** LEtoLN(ListLE* LE, int size) {
@@ -107,7 +134,17 @@ Node** LEtoLN(ListLE* LE, int size) {
 }
 
 void printLN(Node** LN, int size) {
-
+    cout << "Lista sasiedztwa: " << endl;
+    cout << "Punkt (numer punktu) -> (numer punktu do ktorego ma polaczenie, odleglosc pomiedzy nimi)" << endl;
+    for (int i = 0; i < size; i++) {
+        cout << "Punkt " << i;
+        Node* curr = LN[i];
+        while (curr->next) {
+            cout << " -> (" << curr->next->vertex << ", " << curr->next->distance << ")";
+            curr = curr->next;
+        }
+        cout << endl;
+    }
 }
 
 // --------------- Lista krawedzi ---------------
