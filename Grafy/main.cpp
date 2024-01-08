@@ -184,6 +184,33 @@ ListLE* MNtoLE(int** MN, int size) {
 //    distace: MN[i][j],
 //
 //    i kazdy taki punkt dodajemy do LE
+
+    ListLE* LE = new ListLE();
+    LE->head = new NodeLE(0, 0, 0);
+    NodeLE* last = LE->head;
+    // ^ wyjasnione wyzej
+
+
+    // dla kazdego punktu
+    for (int i = 0; i < size; i++) {
+        // bierzemy drugi punkt
+        for (int j = 0; j < size; j++) {
+            // a jesli odleglosc miedzy nimi jest wieksza od 0 (czyli istnieje polaczenie)
+            if (MN[i][j] > 0) {
+                // to dodajemy to polaczenie do tablicy
+                // dodaj do LE nowy node gdzie from=i, to=j, distance=MN[i][j]
+
+                last->next = new NodeLE(i, j, MN[i][j]);
+                last = last->next;
+            }
+
+        }
+    }
+
+    NodeLE* temp = LE->head;
+    LE->head = LE->head->next;
+    delete temp;
+    return LE;
 } 
 
 void printLE(ListLE* LE) {
