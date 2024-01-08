@@ -131,6 +131,30 @@ Node** LEtoLN(ListLE* LE, int size) {
 
 //    tutaj trzeba przeleciec po kazdym node z listy i sprawdzac 'from' a na podstawie tego dodawac node do LN[from]
 //    nie musze sprawdzac czy odleglosc jest >0 bo w LE nie powinno byc takich rzeczy
+
+    cout << "kontrolka";
+    Node** LN = new Node*[size];
+    for (int i = 0; i < size; i++) {
+        LN[i] = new Node(i,0 );
+    }
+
+    NodeLE* currLE = LE->head;
+
+    while (currLE) {
+        // tutaj za kazdym razem przechodzi od poczatku do ostatniego elementu w LE[i], moznaby to usprawnic bo przy
+        // malych danych nie przeszkadza ale przy ogromnych grafach na pewno nie byloby szczegolnie przyjemne
+        Node* currLN = LN[currLE->from];
+
+        while (currLN->next) {
+            currLN = currLN->next;
+        }
+
+        currLN->next = new Node(currLE->to, currLE->distance);
+
+        currLE = currLE->next;
+    }
+
+    return LN;
 }
 
 void printLN(Node** LN, int size) {
