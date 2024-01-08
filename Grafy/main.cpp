@@ -214,6 +214,15 @@ ListLE* MNtoLE(int** MN, int size) {
 } 
 
 void printLE(ListLE* LE) {
+    NodeLE* curr = LE->head;
+
+    cout << "Lista krawedzi: " << endl;
+
+    while (curr) {
+        cout << "Od: " << curr->from << ", Do: " << curr->to << ", Odleglosc: " << curr->distance << endl;
+
+        curr = curr->next;
+    }
 }
 
 
