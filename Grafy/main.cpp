@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <unistd.h>
+
 const int sizeOfGraph = 8;
 
 using namespace std;
@@ -249,36 +251,82 @@ void printLE(ListLE* LE) {
     }
 }
 
+// --------------- Algorytm Prima ---------------
+
+ListLE* Prim(Node** LN, int size, int start)  {
+    // generowanie tablicy kolorow i wypelnianie jej zerami (wierzcholek startowy od razu jako 1)
+    int colorTable[size];
+    for (int i = 0; i < size; i++) {
+        colorTable[i] = 0;
+    }
+    colorTable[start] = 1;
+
+    // inicjowanie wynikowej listy krawedzi
+    ListLE* LE = new ListLE();
+    // to po to zeby nie musiec uwzgledniac przypadku kiedy w liscie jeszcze nic nie ma i musimy dac na heada, na koncu
+    // trzeba usunac
+    LE->head = new NodeLE(0, 0, 0);
+    NodeLE* last = LE->head;
+
+    bool isColorTableFull = false;
+
+    while (!isColorTableFull) {
+        // domyslnie na to zeby pozniej pod koniec sprawdzic znowu
+        isColorTableFull = true;
+
+        int minimalDistance = 2147483647;
+        int vertexFrom = 2147483647;
+        int vertexTo = 2147483647;
+
+        for (int i = 0; i < size; i++) {
+            if (colorTable[i] == 1) {
+                Node* curr = LN[i];
+                int f = curr->vertex;
+
+                while (curr->next) {
+                    if (curr->next->distance < minimalDistance && colorTable[curr->next->vertex] == 0) {
+                        vertexFrom = f;
+                        vertexTo = curr->next->vertex;
+                        minimalDistance = curr->next->distance;
+                    }
+                    curr = curr->next;
+                }
+
+            }
+        }
+
+        
+        colorTable[vertexTo] = 1;
+
+        // sprawdzamy czy nie zapelnilismy calej tablicy kolorow
+        for (int j = 0; j < size; j++) {
+            if (colorTable[j] == 0) {
+                isColorTableFull = false;
+                break;
+            }
+        }
+    }
+
+    // usuwanie pomocniczego heada
+    NodeLE* temp = LE->head;
+    LE->head = LE->head->next;
+    delete temp;
+
+    // zwracanie wynikowej listy krawedzi
+    return LE;
+}
+
+// --------------- Algorytm Kruskala ---------------
+
 
 int main() {
     // MN w oparciu o plik
     int** MN = fileToMN("graf.txt");
-    cout << "\n\n";
-    printMN(MN, sizeOfGraph);
-    cout << "\n\n";
 
     // LN w oparciu o MN
     Node** LN = MNtoLN(MN, sizeOfGraph);
-    cout << "\n\n";
     printLN(LN, sizeOfGraph);
-    cout << "\n\n";
 
-    // LE w oparciu o LN
-    ListLE* LE = LNtoLE(LN, sizeOfGraph);
-    cout << "\n\n";
-    printLE(LE);
-    cout << "\n\n";
-    
-    // LE w oparciu o MN
-    ListLE* LEzMN = MNtoLE(MN, sizeOfGraph);
-    cout << "\n\n";
-    printLE(LEzMN);
-    cout << "\n\n";
-
-    // LN w oparciu o LE
-    Node** LNzLE = LEtoLN(LE, sizeOfGraph);
-    cout << "\n\n";
-    printLN(LNzLE, sizeOfGraph);
-    cout << "\n\n";
+    Prim(LN, sizeOfGraph, 5);
 
 }
