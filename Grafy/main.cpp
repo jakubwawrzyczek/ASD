@@ -6,6 +6,21 @@ const int sizeOfGraph = 8;
 
 using namespace std;
 
+void printTable(int size, int* tab) {
+    for (int i = 0; i < (size*4 + 2); i++) {
+        cout << "-";
+    }
+    cout << "\n| ";
+    for (int i = 0; i < size; i++) {
+        cout << tab[i] << " | ";
+    }
+    cout << endl;
+    for (int i = 0; i < (size*4 + 2); i++) {
+        cout << "-";
+    }
+    cout << endl;
+}
+
 
 // --------------- Struktury -----
 
@@ -437,6 +452,8 @@ ListLE* prim(Node** LN, int size, int start)  {
 
 ListLE* kruskal(Node** LN, int size) {
 
+    ListLE* LER = new ListLE(); // LE, ktora zwrocimy
+
     // najpierw trzeba zadbac o to zeby w LN nie bylo powtorzen i zamienic ja na LE
     ListLE* LE = LNtoLEbezPowtorzen(LN, size);
 
@@ -454,46 +471,92 @@ ListLE* kruskal(Node** LN, int size) {
         forest[i] = 0;
     }
 
-    NodeLE* currLE = LE->head;
+    NodeLE* currLE = copy->head;
 
     while (currLE) {
 
+        printTable(size, forest);
+
         // zapisywanie wskaznika currLE do nowej zmiennej
         NodeLE* node = currLE;
-        // zmiana currLE na nastepny
-        currLE = currLE->next;
+        // 'wypiecie' currLE z listy i ustawienie heada (i currLE) jako nastepny
+        copy->head = copy->head->next;
+        currLE = copy->head;
+        node->next = nullptr;
         // mozemy to zrobic na poczatku bo pozniej i tak w sumie musimy go albo przepiac do innej listy albo usunac
 
         int v1 = node->from;
         int v2 = node->to;
 
         // sprawdzam czy krawedz currLE ma dwa biale wierzcholki, a jezeli tak to dolaczam ja do nowego drzewa i do LER
-        // dodatkowo musze zmienic kolor obu jej wierzcholkow na 'szary'
+        // dodatkowo musze zmienic kolor obu jej wierzcholkow na 'szary' i zwiekszyc iterator o 1
         if (forest[v1] == 0 && forest[v2] == 0) {
-            cout << "dwabiale ";
+            forest[v1] = forest[v2] = forestIterator;
+            forestIterator++;
+
+
+            // dodawanie przed glowe do LER
+            NodeLE* temp = LER->head;
+            LER->head = node;
+            node->next = temp;
+
+            cout << "dwa biale [" << v1 << "]->[" << v2 <<"]" << endl;
         }
 
         // jesli krawedz currLE ma tylko jeden bialy wierzcholek to dolaczana jest do istniejacego juz lasu i LER
-        // dodatkowo zmieniam kolor drugiego wierzcholka na szary
+        // dodatkowo zmieniam kolor drugiego wierzcholka na szary (nie robie tego bo nie korzystam z tablicy kolorow)
         else if (forest[v1] != 0 && forest[v2] == 0) {
+            forest[v2] = forest[v1];   // zmiana lasu v2 na ten do ktorego jest przypisany v1
 
+            // dodawanie przed glowe do LER
+            NodeLE* temp = LER->head;
+            LER->head = node;
+            node->next = temp;
+
+            cout << "jeden bialy [" << v1 << "]->[" << v2 <<"]" << endl;
         }
 
         else if (forest[v1] == 0 && forest[v2] != 0) {
+            forest[v1] = forest[v2];   // zmiana lasu v1 na ten do ktorego jest przypisany v2
 
+            // dodawanie przed glowe do LER
+            NodeLE* temp = LER->head;
+            LER->head = node;
+            node->next = temp;
+            cout << "jeden bialy [" << v1 << "]->[" << v2 <<"]" << endl;
         }
 
         // jesli krawedz currLE ma dwa szare wierzcholk i NALEZA ONE DO DWOCH ROZNYCH LASOW to lacze je w jeden i do LER
         else if (forest[v1] != forest[v2] && forest[v1] != 0 && forest[v2] != 0) {
+            // wybieram mniejszy z lasow (kwestia kosmetyczna tylko i wylacznie)
+            int smaller = forest[v1] > forest[v2] ? forest[v2] : forest[v1];
+            int bigger = forest[v1] < forest[v2] ? forest[v2] : forest[v1];
 
+            // chcac 'polaczyc lasy' tak naprawde po prostu zmieniam wszystkie wartosci forest[v1] na forest[v2] lub
+            // forest[v2] na forest[v1]
+
+            for (int i = 0; i < size; i++) {
+                if (forest[i] == bigger) {
+                    forest[i] = smaller;
+                }
+            }
+
+            // dodawanie przed glowe do LER
+            NodeLE* temp = LER->head;
+            LER->head = node;
+            node->next = temp;
+
+            cout << "dwa szare i rozne drzewa [" << v1 << "]->[" << v2 <<"]" << endl;
         }
 
         // jesli krawedz currLE ma dwa szare wierzcholki i naleza one do TEGO SAMEGO LASU to jest ona odrzucana
         else if (forest[v1] == forest[v2] && forest[v1] != 0 && forest[v2] != 0) {
-
+            delete node;
+            cout << "dwa szare i to samo drzewo [" << v1 << "]->[" << v2 <<"]" << endl;
         }
     }
 
+    return LER;
 }
 
 int main() {
@@ -502,8 +565,6 @@ int main() {
 
     // LN w oparciu o MN
     Node** LN = MNtoLN(MN, sizeOfGraph);
-    printLN(LN, sizeOfGraph);
-
     // LE w oparciu o LN
     ListLE* LE = LNtoLE(LN, sizeOfGraph);
 
@@ -514,4 +575,5 @@ int main() {
 
     // kruskal
     ListLE* algorytmKruskala = kruskal(LN, sizeOfGraph);
+    printLE(algorytmKruskala);
 }
