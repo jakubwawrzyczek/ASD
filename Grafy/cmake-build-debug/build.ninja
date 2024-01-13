@@ -36,7 +36,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug/
+cmake_ninja_workdir = /Users/jakubwawrzyczek/Desktop/semestr$ 3$:4/Study/ASD/Grafy/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target Grafy
 
@@ -46,9 +46,9 @@ cmake_ninja_workdir = /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build
 
 build cmake_object_order_depends_target_Grafy: phony || CMakeFiles/Grafy.dir
 
-build CMakeFiles/Grafy.dir/main.cpp.o: CXX_COMPILER__Grafy_Debug /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/main.cpp || cmake_object_order_depends_target_Grafy
+build CMakeFiles/Grafy.dir/main.cpp.o: CXX_COMPILER__Grafy_Debug /Users/jakubwawrzyczek/Desktop/semestr$ 3$:4/Study/ASD/Grafy/main.cpp || cmake_object_order_depends_target_Grafy
   DEP_FILE = CMakeFiles/Grafy.dir/main.cpp.o.d
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -mmacosx-version-min=14.1 -std=gnu++14
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -std=gnu++14
   OBJECT_DIR = CMakeFiles/Grafy.dir
   OBJECT_FILE_DIR = CMakeFiles/Grafy.dir
   TARGET_COMPILE_PDB = CMakeFiles/Grafy.dir/
@@ -63,7 +63,7 @@ build CMakeFiles/Grafy.dir/main.cpp.o: CXX_COMPILER__Grafy_Debug /Users/jakubwaw
 # Link the executable Grafy
 
 build Grafy: CXX_EXECUTABLE_LINKER__Grafy_Debug CMakeFiles/Grafy.dir/main.cpp.o
-  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -mmacosx-version-min=14.1
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk
   OBJECT_DIR = CMakeFiles/Grafy.dir
   POST_BUILD = :
   PRE_LINK = :
@@ -76,7 +76,7 @@ build Grafy: CXX_EXECUTABLE_LINKER__Grafy_Debug CMakeFiles/Grafy.dir/main.cpp.o
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug" && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -87,7 +87,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy -B/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug
+  COMMAND = cd "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug" && /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake --regenerate-during-build -S"/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy" -B"/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -103,7 +103,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug
+# Folder: /Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug
 
 build all: phony Grafy
 

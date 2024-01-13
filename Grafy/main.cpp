@@ -42,6 +42,20 @@ public:
     NodeLE* head = nullptr;
     ListLE() { head = nullptr; }
     ListLE(NodeLE* newNode) { head = newNode; }
+
+    void addH(int f, int t, int d) {
+        NodeLE* newNode = new NodeLE(f, t, d);
+
+        newNode->next=head;
+        head = newNode;
+    }
+
+    void removeH() {
+        NodeLE* temp = head;
+        head = head->next;
+
+        delete temp;
+    }
 };
 
 // --------------- Macierz sasiedztwa ---------------
@@ -202,6 +216,39 @@ ListLE* LNtoLE(Node** LN, int size) {
     return LE;
 }
 
+ListLE* LNtoLEbezPowtorzen(Node** LN, int size) {
+    ListLE* LE = new ListLE();
+
+    // to po to zeby nie musiec uwzgledniac przypadku kiedy w liscie jeszcze nic nie ma i musimy dac na heada, na koncu
+    // trzeba usunac
+    LE->head = new NodeLE(0, 0, 0);
+
+    NodeLE* last = LE->head;
+
+    // przechodzenie po kazdym elemencie LN i dodawanie go do Listy LE, ale unikajac powtorzen
+    for (int i = 0; i < size; i++) {
+        Node* curr = LN[i];
+
+        while (curr->next) {
+            int currnextV = curr->next->vertex;
+            int distance = curr->next->distance;
+            // if sprawdza czy i ktore aktualnie sprawdzamy nie powtorzylo sie juz gdzies wczesniej w sprawdzanych
+            // punktach (ciezko to wyjasnic w tekscie)
+            if (curr->next->vertex > i) {
+                last->next = new NodeLE(i, curr->next->vertex, curr->next->distance);
+                last = last->next;
+            }
+            curr = curr->next;
+
+        }
+    }
+
+    NodeLE* temp = LE->head;
+    LE->head = LE->head->next;
+    delete temp;
+    return LE;
+}
+
 ListLE* MNtoLE(int** MN, int size) {
 //    chcac zamienic MN na LE musimy przeleciec po calej tablicy uzywajac zmiennych i, j - wtedy:
 //
@@ -251,9 +298,70 @@ void printLE(ListLE* LE) {
     }
 }
 
+ListLE* copyLE(ListLE* LE) {
+    ListLE* newLE = new ListLE();
+
+    NodeLE* curr = LE->head;
+
+    while (curr) {
+        newLE->addH(curr->from, curr->to, curr->distance);
+
+        curr = curr->next;
+    }
+
+    return newLE;
+}
+
+// sortowanie listy krawedzi (potrzebne do kruskala) (pracuje na kopii zeby oryginalnej listy nie ruszac)
+ListLE* sortLE(ListLE* LE) {
+    if (LE->head == nullptr || LE->head->next == nullptr) {
+        // nie sortujemy tablicy ktora ma jeden badz 0 elementow
+        return LE;
+    }
+
+    // wartownik zeby uproscic zamienianie miejscami
+    LE->addH(-1, -1, -1);
+
+    NodeLE* end = nullptr;
+    bool swapped;
+
+    do {
+        swapped = false;
+        NodeLE* p = LE->head;
+
+        while (p->next && p->next->next != end) {
+            NodeLE* K = nullptr;
+
+            int a = p->next->distance;
+            int b = p->next->next->distance;
+
+            if (p->next->distance > p->next->next->distance) {
+                swapped = true;
+
+                NodeLE* temp = p->next;
+                p->next = temp->next;
+                temp->next = p->next->next;
+                p->next->next = temp;
+
+                K = p;
+            }
+
+            p = p->next;
+        }
+
+        end = p->next;
+    } while (swapped);
+
+    // usuwamy wartownik
+    LE->removeH();
+
+    return LE;
+}
+
+
 // --------------- Algorytm Prima ---------------
 
-ListLE* Prim(Node** LN, int size, int start)  {
+ListLE* prim(Node** LN, int size, int start)  {
     // generowanie tablicy kolorow i wypelnianie jej zerami (wierzcholek startowy od razu jako 1)
     int colorTable[size];
     for (int i = 0; i < size; i++) {
@@ -295,7 +403,13 @@ ListLE* Prim(Node** LN, int size, int start)  {
             }
         }
 
-        
+        // cout << vertexFrom << " -> " << vertexTo << ", "; // pomocnicze printowanie aktualnie wybranego polaczenia
+
+        // tu trzeba dodac do lsity sasiedztwa
+        NodeLE* newNode = new NodeLE(vertexFrom, vertexTo, minimalDistance);
+        last->next = newNode;
+        last = last->next;
+
         colorTable[vertexTo] = 1;
 
         // sprawdzamy czy nie zapelnilismy calej tablicy kolorow
@@ -318,6 +432,28 @@ ListLE* Prim(Node** LN, int size, int start)  {
 
 // --------------- Algorytm Kruskala ---------------
 
+ListLE* kruskal(Node** LN, int size) {
+
+    // najpierw trzeba zadbac o to zeby w LN nie bylo powtorzen i zamienic ja na LE
+    ListLE* LE = LNtoLEbezPowtorzen(LN, size);
+
+    ListLE* copy = copyLE(LE);   // kopiowanie zeby nie pracowac na oryginalnej liscie
+    copy = sortLE(copy);      // sortowanie
+
+    // generowanie tablicy forest i wypelnianie jej zerami (0 oznacza ze punkt nie jest uwzgledniony w zadnym lesie)
+    // dodatkowo od razu inicjuje zmienna ktora bedzie iteratorem lasow
+    // nie robie tablicy kolorow bo w tym przypadku wykorzystam do tego tablice lasow i tym samym zuzyje mniej pamieci
+    // jesli w tablicy lasow punkt ma wartosc jakakolwiek inna niz 0 to to samo co jakby w tablicy kolorow mial 1
+
+    int forestIterator = 1;
+    int forest[size];
+    for (int i = 0; i < size; i++) {
+        forest[i] = 0;
+    }
+
+
+
+}
 
 int main() {
     // MN w oparciu o plik
@@ -327,6 +463,14 @@ int main() {
     Node** LN = MNtoLN(MN, sizeOfGraph);
     printLN(LN, sizeOfGraph);
 
-    Prim(LN, sizeOfGraph, 5);
+    // LE w oparciu o LN
+    ListLE* LE = LNtoLE(LN, sizeOfGraph);
 
+    // wyszukiwanie najkrotszej drogi przechodzacej przez kazdy punkt
+    // prim
+    ListLE* algorytmPrima = prim(LN, sizeOfGraph, 2);
+    printLE(algorytmPrima);
+
+    // kruskal
+    ListLE* algorytmKruskala = kruskal(LN, sizeOfGraph);
 }

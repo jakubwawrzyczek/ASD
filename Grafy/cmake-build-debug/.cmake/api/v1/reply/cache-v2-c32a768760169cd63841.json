@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug"
+			"value" : "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -515,7 +515,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy"
+			"value" : "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -735,7 +735,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "14.1"
+			"value" : ""
 		},
 		{
 			"name" : "CMAKE_OSX_SYSROOT",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy/cmake-build-debug"
+			"value" : "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy/cmake-build-debug"
 		},
 		{
 			"name" : "Grafy_IS_TOP_LEVEL",
@@ -1111,7 +1111,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/jakubwawrzyczek/Desktop/Study/ASD/Grafy"
+			"value" : "/Users/jakubwawrzyczek/Desktop/semestr 3:4/Study/ASD/Grafy"
 		}
 	],
 	"kind" : "cache",
