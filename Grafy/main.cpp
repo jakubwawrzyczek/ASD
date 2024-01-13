@@ -403,6 +403,8 @@ ListLE* prim(Node** LN, int size, int start)  {
     bool isColorTableFull = false;
 
     while (!isColorTableFull) {
+        printTable(size, colorTable);
+
         // domyslnie na to zeby pozniej pod koniec sprawdzic znowu
         isColorTableFull = true;
 
@@ -427,7 +429,7 @@ ListLE* prim(Node** LN, int size, int start)  {
             }
         }
 
-        // cout << vertexFrom << " -> " << vertexTo << ", "; // pomocnicze printowanie aktualnie wybranego polaczenia
+        cout << "["<< vertexFrom << "] -> [" << vertexTo << "]" << endl; // pomocnicze printowanie aktualnie wybranego polaczenia
 
         // tu trzeba dodac do lsity sasiedztwa
         NodeLE* newNode = new NodeLE(vertexFrom, vertexTo, minimalDistance);
