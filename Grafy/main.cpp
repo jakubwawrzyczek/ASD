@@ -7,18 +7,24 @@ const int sizeOfGraph = 8;
 using namespace std;
 
 void printTable(int size, int* tab) {
+    // printowanie oznaczen pol
+    cout << "|";
+    for (int i = 0; i < size; i++) {
+        cout << " " << i << " |";
+    }
+    cout << endl;
+
+    // printowanie linii poziomej
     for (int i = 0; i < (size*4 + 2); i++) {
         cout << "-";
     }
     cout << "\n| ";
+
+    // printowanie zawartosci i przerw pionowych
     for (int i = 0; i < size; i++) {
         cout << tab[i] << " | ";
     }
-    cout << endl;
-    for (int i = 0; i < (size*4 + 2); i++) {
-        cout << "-";
-    }
-    cout << endl;
+    cout << endl << endl;
 }
 
 
