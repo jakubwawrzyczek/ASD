@@ -6,6 +6,9 @@ const int sizeOfGraph = 8;
 
 using namespace std;
 
+
+// --------------- Struktury -----
+
 class Node {
     friend class List;
 
@@ -232,7 +235,7 @@ ListLE* LNtoLEbezPowtorzen(Node** LN, int size) {
         while (curr->next) {
             int currnextV = curr->next->vertex;
             int distance = curr->next->distance;
-            // if sprawdza czy i ktore aktualnie sprawdzamy nie powtorzylo sie juz gdzies wczesniej w sprawdzanych
+            // if sprawdza czy 'i' ktore aktualnie sprawdzamy nie powtorzylo sie juz gdzies wczesniej w sprawdzanych
             // punktach (ciezko to wyjasnic w tekscie)
             if (curr->next->vertex > i) {
                 last->next = new NodeLE(i, curr->next->vertex, curr->next->distance);
@@ -454,16 +457,41 @@ ListLE* kruskal(Node** LN, int size) {
     NodeLE* currLE = LE->head;
 
     while (currLE) {
-        
-        // sprawdzam czy krawed currLE ma dwa biale wierzcholki, a jezeli tak to dolaczam ja do nowego drzewa i do LER
+
+        // zapisywanie wskaznika currLE do nowej zmiennej
+        NodeLE* node = currLE;
+        // zmiana currLE na nastepny
+        currLE = currLE->next;
+        // mozemy to zrobic na poczatku bo pozniej i tak w sumie musimy go albo przepiac do innej listy albo usunac
+
+        int v1 = node->from;
+        int v2 = node->to;
+
+        // sprawdzam czy krawedz currLE ma dwa biale wierzcholki, a jezeli tak to dolaczam ja do nowego drzewa i do LER
         // dodatkowo musze zmienic kolor obu jej wierzcholkow na 'szary'
+        if (forest[v1] == 0 && forest[v2] == 0) {
+            cout << "dwabiale ";
+        }
 
         // jesli krawedz currLE ma tylko jeden bialy wierzcholek to dolaczana jest do istniejacego juz lasu i LER
         // dodatkowo zmieniam kolor drugiego wierzcholka na szary
+        else if (forest[v1] != 0 && forest[v2] == 0) {
+
+        }
+
+        else if (forest[v1] == 0 && forest[v2] != 0) {
+
+        }
 
         // jesli krawedz currLE ma dwa szare wierzcholk i NALEZA ONE DO DWOCH ROZNYCH LASOW to lacze je w jeden i do LER
+        else if (forest[v1] != forest[v2] && forest[v1] != 0 && forest[v2] != 0) {
+
+        }
 
         // jesli krawedz currLE ma dwa szare wierzcholki i naleza one do TEGO SAMEGO LASU to jest ona odrzucana
+        else if (forest[v1] == forest[v2] && forest[v1] != 0 && forest[v2] != 0) {
+
+        }
     }
 
 }
