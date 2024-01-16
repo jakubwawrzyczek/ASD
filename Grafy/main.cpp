@@ -82,7 +82,10 @@ public:
     }
 };
 
-// --------------- Macierz sasiedztwa ---------------
+// --------------- Macierz sasiedztwa (MN) ---------------
+// tablica ktora zawiera odleglosci pomeidzy punktami, ktore sa symbolizowane
+// jako poszczegolne miejsca w tablicy np MN[2][5] to bedzie dlugosc polaczenia pomiedzy
+// punktem nr 2 a punktem nr 6
 
 int** fileToMN(string path) {
 //    tworzymy tablice ktora zawiera odleglosci pomiedzy punktami, ktore sa reprezentowane jako numer
@@ -130,7 +133,8 @@ void printMN(int** MN, int size) {
     }
 }
 
-// --------------- Lista sasiedztwa ---------------
+// --------------- Lista sasiedztwa (LN) ---------------
+// punkt i od tego punktu odchodza nam polaczenia do niego
 
 Node** MNtoLN(int** MN, int size) {
 
@@ -211,7 +215,8 @@ void printLN(Node** LN, int size) {
     }
 }
 
-// --------------- Lista krawedzi ---------------
+// --------------- Lista krawedzi (LE) ---------------
+// skad dokad i jak dlugie
 
 ListLE* LNtoLE(Node** LN, int size) {
     ListLE* LE = new ListLE();
@@ -391,6 +396,8 @@ ListLE* prim(Node** LN, int size, int start)  {
     for (int i = 0; i < size; i++) {
         colorTable[i] = 0;
     }
+
+    // oznaczenie wierzcholka startowego jako szary
     colorTable[start] = 1;
 
     // inicjowanie wynikowej listy krawedzi
@@ -408,16 +415,22 @@ ListLE* prim(Node** LN, int size, int start)  {
         // domyslnie na to zeby pozniej pod koniec sprawdzic znowu
         isColorTableFull = true;
 
+        // algorytm analizuje liste sasiedztwa wszystkich szarych wierzcholkow aby wyszukac
+        // najmniejszej sciezki z wszystkich szarych wierzcholkow
+
         int minimalDistance = 2147483647;
         int vertexFrom = 2147483647;
         int vertexTo = 2147483647;
 
+        // for wybiera po kolei wszystkie wierzcholki
         for (int i = 0; i < size; i++) {
+            // jesli wierzcholek jest szary to przechodzi przez wszystkie mozliwe drogi prowadzace z niego
+            // i wybiera najkrotsza
             if (colorTable[i] == 1) {
                 Node* curr = LN[i];
                 int f = curr->vertex;
-
-                while (curr->next) {
+                                                                // sprawdzamy czy nie jest to juz istnieniace polaczenie
+                while (curr->next) {                            // (czyli czy wierzcholek ktory bierzemy pod uwage jest bialy)
                     if (curr->next->distance < minimalDistance && colorTable[curr->next->vertex] == 0) {
                         vertexFrom = f;
                         vertexTo = curr->next->vertex;
@@ -438,7 +451,9 @@ ListLE* prim(Node** LN, int size, int start)  {
 
         colorTable[vertexTo] = 1;
 
-        // sprawdzamy czy nie zapelnilismy calej tablicy kolorow
+        // sprawdzamy czy nie zapelnilismy calej tablicy kolorow bo jesli tak to przerywamy szukanie bo
+        // wszystkie wierzcholki zostaly uwzglednione
+        // przechodzimy po kazdym elemencie tablicy i jesli ktorykolwiek trafi sie bialy to wiemy ze nadal ma dzialac
         for (int j = 0; j < size; j++) {
             if (colorTable[j] == 0) {
                 isColorTableFull = false;
